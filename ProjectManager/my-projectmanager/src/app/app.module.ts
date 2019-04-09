@@ -12,6 +12,8 @@ import { UpdateTaskComponent } from './update-task/update-task.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { ViewTaskComponent } from './view-task/view-task.component';
 import { SearchTaskPipe } from './search-task.pipe';
+import { AddUserComponent } from './add-user/add-user.component';
+import { AddProjectComponent } from './add-project/add-project.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { SearchTaskPipe } from './search-task.pipe';
     AddTaskComponent,
     ViewTaskComponent,
     SearchTaskPipe,
+    AddUserComponent,
+    AddProjectComponent,
   ],
   imports: [
 

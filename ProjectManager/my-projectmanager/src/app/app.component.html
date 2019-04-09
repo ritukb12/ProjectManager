@@ -1,17 +1,27 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
 <nav class="navbar  navbar-dark bg-inverse">
-  <div class="container">
-      <a class="navbar-brand" href="" i18n="@@app_name">Task Manager</a>
-      <ul class="nav navbar-nav" >
-          <li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/AddTask" i18n="@@navitem1">Add Task</a></li>
-          <li class="nav-item"><a class="nav-link" routerLink="/ViewTask" i18n="@@navitem2">View Tasks</a></li>
-         
-      </ul>
-  </div>
+    <div class="container">
+        <a class="navbar-brand" href="" i18n="@@app_name">Task Manager</a>
+        <ul class="nav navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/AddProject" i18n="@@navitem0">Add Project</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active" routerLink="/AddTask" i18n="@@navitem1">Add Task</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/AddUser" i18n="@@navitem2">Add User</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/ViewTask" i18n="@@navitem3">View Tasks</a>
+            </li>
+
+        </ul>
+    </div>
 </nav>
 <br/>
 
 <router-outlet>
-   
+
 </router-outlet>
