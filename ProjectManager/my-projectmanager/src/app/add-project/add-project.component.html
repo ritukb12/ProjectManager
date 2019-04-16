@@ -1,3 +1,122 @@
-<p>
-  add-project works!
-</p>
+<div class="content">
+  <div class="container">
+    <form [formGroup]="angForm">
+      <div class="form-group">
+        <label for="txt_project_name" i18n="@@temp_project_name" id="lbl_project_name">Project:</label>
+        <input type="text" class="form-control" id="txt_project_name" formControlName="txt_project_name" required #txt_project_name
+          (blur)="ValidateUserName(txt_project_name.value)">
+        <div *ngIf="prjnameErr" class="alert alert-danger">
+          Project Name is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="priority" i18n="@@proj_priority">Priority</label>
+        <div class="slidecontainer">
+          <input type="range" min="0" max="100" value="30" class="slider form-control" #proj_priority formControlName="proj_priority">
+        </div>
+      </div>
+      <div class="form-group">
+        <table>
+          <tr>
+            <td style="width:10%">
+              <label for="manager" i18n="@@proj_manager">Manager:</label>
+            </td>
+            <td style="width:80%">
+              <input type="text" class="form-control" id="txt_project_manager" formControlName="txt_project_manager" required #txt_project_manager
+                (blur)="ValidateUserName(txt_project_manager.value)">
+            </td>
+            <td style="width:10%">
+              <input class="btn btn-default" i18n="@@searchmanager" value="Search">
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div *ngIf="mgrnameErr" class="alert alert-danger">
+        Project Manager is required.
+      </div>
+      <input class="btn btn-primary" i18n="@@temp_Add_proj" type="submit" value="Add Project" [disabled]="error.isError || angForm.invalid"
+        (click)="addproj(txt_project_name.value,txt_project_manager.value)"> &nbsp;
+      <input class="btn btn-primary" i18n="@@temp_Reset_proj" type="reset" value="Reset" (click)="reset()">
+    </form>
+    <hr item-width="100%">
+    <div>
+      <table>
+        <tr>
+          <td style="width: 100%" colspan="5">
+            <input type="text" i18n="@search_proj" placeholder="Search..." class="form-control" id="txt_search_proj" formControlName="txt_search_proj"
+              #txt_search_proj>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="5"><br></td>
+        </tr>
+        <tr>
+          <td>
+            <label i18n="@lbl_sortby" id="lbl_sortby" style="text-align:right">Sort by: </label>
+          </td>
+          <td style="width: 10%">
+
+            <input class="btn btn-default" i18n="@@sort_by_sd" value="Start Date">
+          </td>
+          <td style="width: 10%">
+            <input class="btn btn-default" i18n="@@sort_by_ed" value="End Date">
+          </td>
+
+          <td style="width: 10%">
+            <input class="btn btn-default" i18n="@@sort_by_priority" value="Priority">
+          </td>
+          <td style="width: 10%">
+            <input class="btn btn-default" i18n="@@sort_by_completed" value="Completed">
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div>
+      <hr item-width="100%" style="border-style: dotted">
+      <table>
+        <tr>
+          <td style="width: 10%">
+            <label i18n="@@Project">Project</label>
+          </td>
+          <td colspan="3">
+            <input type="text" class="form-control" value="Project1" readonly>
+          </td>
+          <td style="width: 2%"></td>
+          <td>
+            <label>Priority</label>
+          </td>
+          <td style="width: 2%"></td>
+          <td style="width: 10%">
+            <input type="button" class="btn btn-default" value="Update">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label i18n="@@NoofTasks">Number of Tasks:</label>
+          </td>
+          <td>
+            <input type="text" class="form-control" value="task1" readonly>
+          </td>
+          <td>
+            <label i18n="@@Completed">Completed:</label>
+          </td>
+          <td>
+            <input type="text" class="form-control" value="true1" readonly>
+          </td>
+          <td></td>
+          <td>
+            <input type="text" class="form-control" value="priority1" readonly>
+          </td>
+          <td style="width: 2%"></td>
+          <td>
+            <input type="button" class="btn btn-default" value="Suspend">
+          </td>
+        </tr>
+
+      </table>
+      <hr item-width="100%" style="border-style: dotted">
+    </div>
+
+  </div>
+</div>

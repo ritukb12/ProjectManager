@@ -1,3 +1,83 @@
-<p>
-  add-user works!
-</p>
+<div class="content">
+  <div class="container">
+    <form [formGroup]="angForm">
+      <div class="form-group">
+        <label for="txt_first_name" i18n="@@temp_first_name" id="lbl_first_name">First Name</label>
+        <input type="text" class="form-control" id="txt_first_name" formControlName="txt_first_name" required #txt_first_name (blur)="ValidateUserName(txt_first_name.value)">
+        <div *ngIf="usernameErr" class="alert alert-danger">
+          First Name is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="txt_last_name" i18n="@@user_last_name" id="lbl_last_name">First Name</label>
+        <input type="text" class="form-control" id="txt_last_name" formControlName="txt_last_name" required #txt_last_name (blur)="ValidateUserName(txt_last_name.value)">
+        <div *ngIf="usernameErr" class="alert alert-danger">
+          Last Name is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="txt_emp_id" i18n="@user_emp_id" id="lbl_emp_id">First Name</label>
+        <input type="text" class="form-control" id="txt_emp_id" formControlName="txt_emp_id" required #txt_emp_id (blur)="ValidateUserName(txt_emp_id.value)">
+      </div>
+      <input class="btn btn-primary" i18n="@@temp_Add_user" type="submit" value="Add User" [disabled]="error.isError || angForm.invalid"
+        (click)="adduser(user_first_name.value,user_last_name.value,user_emp_id.value)"> &nbsp;
+      <input class="btn btn-primary" i18n="@@temp_Reset_user" type="reset" value="Reset" (click)="reset()">
+    </form>
+    <hr item-width="100%">
+
+    <div>
+      <table>
+        <tr>
+          <td style="width: 50%">
+            <input type="text" placeholder="Search..." class="form-control" id="txt_search" formControlName="txt_search" #txt_search>
+          </td>
+          <td style="width: 10%">
+          </td>
+          <td >
+            <label i18n="@lbl_sort" id="lbl_sort" style="text-align:right">Sort: </label>
+          </td>
+          <td style="width: 10%">
+
+            <input class="btn btn-default" i18n="@@sort_by_fn" value="First Name">
+          </td>
+          <td style="width: 10%">
+            <input class="btn btn-default" i18n="@@sort_by_ln" value="Last Name">
+          </td>
+          <td style="width: 10%">
+            <input class="btn btn-default" i18n="@@sort_by_empid" value="ID">
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div>
+      <hr item-width="100%" style="border-style: dotted">
+      <table>
+        <tr>
+          <td style="width: 80%">
+            <input type="text" class="form-control" value="First Name" readonly>
+          </td>
+          <td>
+            <input class="btn btn-default" i18n="@@edit_user" value="Edit">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" class="form-control" value="Last Name" readonly>
+          </td>
+          <td>
+            <input class="btn btn-default" i18n="@@delete_user" value="Delete">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" class="form-control" value="Emp ID" readonly>
+          </td>
+          <td></td>
+        </tr>
+      </table>
+      <hr item-width="100%" style="border-style: dotted">
+    </div>
+
+  </div>
+</div>
