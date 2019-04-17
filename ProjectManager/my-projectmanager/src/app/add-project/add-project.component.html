@@ -1,122 +1,177 @@
 <div class="content">
   <div class="container">
-    <form [formGroup]="angForm">
-      <div class="form-group">
-        <label for="txt_project_name" i18n="@@temp_project_name" id="lbl_project_name">Project:</label>
-        <input type="text" class="form-control" id="txt_project_name" formControlName="txt_project_name" required #txt_project_name
-          (blur)="ValidateUserName(txt_project_name.value)">
-        <div *ngIf="prjnameErr" class="alert alert-danger">
-          Project Name is required.
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="priority" i18n="@@proj_priority">Priority</label>
-        <div class="slidecontainer">
-          <input type="range" min="0" max="100" value="30" class="slider form-control" #proj_priority formControlName="proj_priority">
-        </div>
-      </div>
-      <div class="form-group">
+    <form [formGroup]="angFormAddProject">
+      <table  >
+        <tr>
+          <td>
+            <label for="AddProj_projName" i18n="@@lbl_AddProj_projName" id="lbl_AddProj_projName">Project:</label>
+          </td>
+          <td>
+            <input type="text" class="form-control" id="AddProj_projName" formControlName="AddProj_projName" required #AddProj_projName
+              (blur)="ValidateUserName(AddProj_projName.value)">
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <div *ngIf="prjNameErr" i18n="@@AddProj_PrjNameErr" class="alert alert-danger">
+              Project Name is required.
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td colspan="2">
+            <input type="checkbox" i18n="@@AddProj_date_flag" formControlName="AddProj_date_flag" #AddProj_date_flag (click)="toggleFlag();">Set Start date and End date
+
+            <input type="date" class="form-control" formControlName="AddProj_start_date" (blur)="compareTwoDates()"
+              #AddProj_start_date [disabled]="!isDateEntryEnabled" class="btn btn-default">
+            <input type="date" class="form-control" formControlName="AddProj_end_date" #AddProj_end_date (blur)="compareTwoDates()" #AddProj_end_date
+              [disabled]="!isDateEntryEnabled" class="btn btn-default">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="AddProj_priority" i18n="@@lbl_AddProj_priority">Priority</label>
+          </td>
+          <td>
+            <div class="slidecontainer">
+              <input type="range" min="0" max="100" value="30" class="slider form-control" #AddProj_priority formControlName="AddProj_priority">
+            </div>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <label for="AddProj_manager" i18n="@@lbl_AddProj_manager">Manager:</label>
+          </td>
+          <td style="width:80%">
+            <input type="text" class="form-control" disabled id="Addproj_manager" formControlName="Addproj_manager" required
+              #txt_Addproj_manager (blur)="ValidateUserName(Addproj_manager.value)">
+          </td>
+          <td style="width:10%">
+            <input type="button" class="btn btn-default" i18n="@@btn_AddPproj_searchManager"
+              value="Search">
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="3">
+            <div *ngIf="mgrNameErr" i18n="@@AddPproj_mgrNameErr" class="alert alert-danger">
+              Project Manager is required.
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">&nbsp;</td>
+        </tr>
+        <tr>
+          <td>
+            <input class="btn btn-primary" i18n="@@btn_addProj_submit" type="submit" value="Add Project" [disabled]="error.isError || angFormAddProject.invalid"
+              (click)="addproj(AddProj_projName.value,txt_Addproj_manager.value)">
+
+          </td>
+          <td>
+            <input class="btn btn-primary" i18n="@@AddProj_Reset" type="reset" value="Reset" (click)="reset()">
+          </td>
+          <td></td>
+        </tr>
+      </table>
+      <hr item-width="100%">
+      <div>
         <table>
           <tr>
-            <td style="width:10%">
-              <label for="manager" i18n="@@proj_manager">Manager:</label>
+            <td style="width: 100%" colspan="5">
+              <input type="text" i18n="@txt_AddProj_searchProj" placeholder="Search..." class="form-control" id="txt_AddProj_searchProj"
+                formControlName="txt_AddProj_searchProj" #txt_AddProj_searchProj>
             </td>
-            <td style="width:80%">
-              <input type="text" class="form-control" id="txt_project_manager" formControlName="txt_project_manager" required #txt_project_manager
-                (blur)="ValidateUserName(txt_project_manager.value)">
+          </tr>
+          <tr>
+            <td colspan="5">
+              <br>
             </td>
-            <td style="width:10%">
-              <input class="btn btn-default" i18n="@@searchmanager" value="Search">
+          </tr>
+          <tr>
+            <td>
+              <label i18n="@lbl_AddProj_sortby" id="lbl_AddProj_sortby" style="text-align:right">Sort by: </label>
+            </td>
+            <td style="width: 10%">
+  
+              <input  type="button" class="btn btn-default"  i18n="@@btn_AddProj_sortby_sd" value="Start Date">
+            </td>
+            <td style="width: 10%">
+              <input  type="button" class="btn btn-default" i18n="@@btn_AddProj_sortby_ed" value="End Date">
+            </td>
+  
+            <td style="width: 10%">
+              <input  type="button" class="btn btn-default"i18n="@@btn_AddProj_sortby_p" value="Priority">
+            </td>
+            <td style="width: 10%">
+              <input  type="button" class="btn btn-default"  i18n="@@btn_AddProj_sortby_comp" value="Completed">
             </td>
           </tr>
         </table>
       </div>
-      <div *ngIf="mgrnameErr" class="alert alert-danger">
-        Project Manager is required.
-      </div>
-      <input class="btn btn-primary" i18n="@@temp_Add_proj" type="submit" value="Add Project" [disabled]="error.isError || angForm.invalid"
-        (click)="addproj(txt_project_name.value,txt_project_manager.value)"> &nbsp;
-      <input class="btn btn-primary" i18n="@@temp_Reset_proj" type="reset" value="Reset" (click)="reset()">
+  
+      <div>
+        <hr item-width="100%" style="border-style: dotted">
+        <table>
+          <tr>
+            <td style="width: 10%">
+              <label i18n="@@lbl_AddProj_Project" >Project</label>
+            </td>
+            <td colspan="3">
+              <input type="text" class="form-control" value="Project1" readonly>
+            </td>
+            <td style="width: 2%"></td>
+            <td>
+              <label i18n="row_AddProj_Priority" >Priority</label>
+            </td>
+            <td style="width: 2%"></td>
+            <td style="width: 10%">
+              <input type="button" class="btn btn-default" value="Update" i18n="btn_AddProj_Update" >
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label i18n="@@NoofTasks" >Number of Tasks:</label>
+            </td>
+            <td>
+              <input type="text" class="form-control" value="task1" readonly>
+            </td>
+            <td>
+              <label i18n="@@Completed" >Completed:</label>
+            </td>
+            <td>
+              <input type="text" class="form-control" value="true1" readonly>
+            </td>
+            <td></td>
+            <td>
+              <input type="text" class="form-control" value="priority1" readonly>
+            </td>
+            <td style="width: 2%"></td>
+            <td>
+              <input type="button" i18n="@@row_btn_Suspend"  class="btn btn-default" value="Suspend">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label i18n="@@starttaskdate" >Start Date:</label>
+            </td>
+            <td>
+              <input type="text" class="form-control" value="start date 1" readonly>
+            </td>
+            <td>
+              <label i18n="@@endtaskdate">End Date:</label>
+            </td>
+            <td>
+              <input type="text" class="form-control" value="end date 1" readonly>
+            </td>
+          </tr>
+  
+        </table>
+        <hr item-width="100%" style="border-style: dotted">
+      </div>  
     </form>
-    <hr item-width="100%">
-    <div>
-      <table>
-        <tr>
-          <td style="width: 100%" colspan="5">
-            <input type="text" i18n="@search_proj" placeholder="Search..." class="form-control" id="txt_search_proj" formControlName="txt_search_proj"
-              #txt_search_proj>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="5"><br></td>
-        </tr>
-        <tr>
-          <td>
-            <label i18n="@lbl_sortby" id="lbl_sortby" style="text-align:right">Sort by: </label>
-          </td>
-          <td style="width: 10%">
-
-            <input class="btn btn-default" i18n="@@sort_by_sd" value="Start Date">
-          </td>
-          <td style="width: 10%">
-            <input class="btn btn-default" i18n="@@sort_by_ed" value="End Date">
-          </td>
-
-          <td style="width: 10%">
-            <input class="btn btn-default" i18n="@@sort_by_priority" value="Priority">
-          </td>
-          <td style="width: 10%">
-            <input class="btn btn-default" i18n="@@sort_by_completed" value="Completed">
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <div>
-      <hr item-width="100%" style="border-style: dotted">
-      <table>
-        <tr>
-          <td style="width: 10%">
-            <label i18n="@@Project">Project</label>
-          </td>
-          <td colspan="3">
-            <input type="text" class="form-control" value="Project1" readonly>
-          </td>
-          <td style="width: 2%"></td>
-          <td>
-            <label>Priority</label>
-          </td>
-          <td style="width: 2%"></td>
-          <td style="width: 10%">
-            <input type="button" class="btn btn-default" value="Update">
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label i18n="@@NoofTasks">Number of Tasks:</label>
-          </td>
-          <td>
-            <input type="text" class="form-control" value="task1" readonly>
-          </td>
-          <td>
-            <label i18n="@@Completed">Completed:</label>
-          </td>
-          <td>
-            <input type="text" class="form-control" value="true1" readonly>
-          </td>
-          <td></td>
-          <td>
-            <input type="text" class="form-control" value="priority1" readonly>
-          </td>
-          <td style="width: 2%"></td>
-          <td>
-            <input type="button" class="btn btn-default" value="Suspend">
-          </td>
-        </tr>
-
-      </table>
-      <hr item-width="100%" style="border-style: dotted">
-    </div>
-
+   
   </div>
 </div>

@@ -1,65 +1,146 @@
 <div class="content">
     <div class="container">
-        <form [formGroup]="angForm">
-            <div class="form-group">
-                <table style="width:100%">
-                    <tr>
-                        <td style="width:10%">
-                            <label for="proj" i18n="@@temp_proj_name" id="proj">Project</label>
-                        </td>
-                        <td style="width:80%">
-                            <input type="text" disabled class="form-control" id="projname" formControlName="projname" required #projname (blur)="ValidateTaskName(projname.value)">
-                        </td>
-                        <td >
-                            <input type="button" class="btn btn-default" value="Search">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <div *ngIf="tasknameErr" class="alert alert-danger">
-                                Project Name is required.
-                            </div>
-                        </td>
+        <form [formGroup]="angFormAddTask">
+            <table>
+                <tr>
+                    <td>
+                        <label for="proj" i18n="@@AddTask_Project" id="proj">Project</label>
+                    </td>
+                    <td style="width:80%">
+                        <input type="text" disabled class="form-control" id="projname" formControlName="AddTask_txt_projname" required #AddTask_txt_projname
+                            (blur)="ValidateTaskName(AddTask_txt_projname.value)">
+                    </td>
+                    <td>
+                        <input type="button" i18n="@@AddTask_SearchProj" class="btn btn-default" value="Search" #AddTask_SearchProj>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
 
-                    </tr>
-                </table>
-            </div>
-            <div class="form-group">
-                <label for="task" i18n="@@temp_task_name" id="task">Task</label>
-                <input type="text" class="form-control" id="task_name" formControlName="task_name" required #task_name (blur)="ValidateTaskName(task_name.value)">
-                <div *ngIf="tasknameErr" class="alert alert-danger">
-                    Task Name is required.
-                </div>
-                <input type="checkbox" checked>Parent Task
-            </div>
-            <div class="form-group">
-                <label for="priority" i18n="@@temp_priority">Priority</label>
-                <div class="slidecontainer">
-                    <input type="range" min="0" max="100" value="30" class="slider form-control" #priority formControlName="priority">
-                </div>
-            </div>
+                        <div *ngIf="projNameError" i18n="@@AddTask_projNameError" class="alert alert-danger">
+                            Project Name is required.
+                        </div>
 
-            <div class="form-group">
-                <label for="parenttask" i18n="@@temp_parent_task_name">Select Parent Task</label>
-                <select class="form-control" formControlName="parent_task_name" #parent_task_name>
-                    <option [value]="selectUndefinedOptionValue">-- select --</option>
-                    <option *ngFor="let task of tasks">{{task.task_name}}</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="startdate" i18n="@@temp_start_date">Start Date </label>
-                <input type="date" class="form-control" formControlName="start_date" #start_date required (blur)="compareTwoDates()">
-            </div>
-            <div class="form-group">
-                <label for="enddate" i18n="@@temp_end_date">End Date</label>
-                <input type="date" class="form-control" formControlName="end_date" #end_date required (blur)="compareTwoDates()">
-            </div>
-            <div *ngIf="error.isError" class="alert alert-danger">
-                {{ error.errorMessage }}
-            </div>
-            <input class="btn btn-primary" i18n="@@temp_Add_task" type="submit" value="Add Task" [disabled]="error.isError || angForm.invalid"
-                (click)="addtask(task_name.value,parent_task_name.value,start_date.value,end_date.value, priority.value)"> &nbsp;
-            <input class="btn btn-primary" i18n="@@temp_Reset" type="reset" value="Reset" (click)="reset()">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
+                        <label i18n="@@AddTask_task_name" id="AddTask_task_name">Task</label>
+
+
+                    </td>
+                    <td>
+
+                        <input type="text" class="form-control" id="AddTask_txt_task_name" formControlName="AddTask_txt_task_name" required #AddTask_txt_task_name
+                            (blur)="ValidateTaskName(AddTask_txt_task_name.value)">
+
+                    </td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="checkbox" i18n="@@AddTask_ParentFlag" checked>Parent Task
+                    </td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div *ngIf="tasknameErr" i18n="@@AddTask_taskerror" class="alert alert-danger">
+                            Task Name is required.
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="AddTask_priority" i18n="@@AddTask_lbl_priority">Priority</label>
+                    </td>
+                    <td>
+                        <div class="slidecontainer">
+                            <input type="range" min="0" max="100" value="30" class="slider form-control" #AddTask_priority formControlName="AddTask_priority">
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="parenttask" i18n="@@AddTask_lbl_parent_task_name">Select Parent Task</label>
+                    </td>
+                    <td>
+                        <select class="form-control" formControlName="AddTask_parent_task_name" #AddTask_parent_task_name>
+                            <option [value]="selectUndefinedOptionValue" i18n="@@AddTask_selectoption">-- select --</option>
+                            <option *ngFor="let task of tasks">{{task.task_name}}</option>
+                        </select>
+                    </td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <label for="AddTask_txt_start_date" i18n="@@AddTask_lbl_start_date">Start Date </label>
+                    </td>
+                    <td>
+                        <input type="date" class="form-control" formControlName="AddTask_txt_start_date" #AddTask_txt_start_date required (blur)="compareTwoDates()">
+                    </td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label for="enddate" i18n="@@AddTask_lbl_end_date">End Date</label>
+                    </td>
+                    <td>
+                        <input type="date" class="form-control" formControlName="AddTask_txt_end_date" #AddTask_txt_end_date required (blur)="compareTwoDates()">
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div *ngIf="error.isError" i18n="@@AddTask_error" class="alert alert-danger">
+                            {{ error.errorMessage }}
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <label for="user" i18n="@@AddTask_lbl_user">User</label>
+                    </td>
+                    <td>
+                        <input type="text" disabled class="form-control" formControlName="AddTask_txt_user" #AddTask_txt_user required>
+                    </td>
+                    <td>
+                        <input type="button" i18n="@@AddTask_btn_search_user" class="btn btn-default" #AddTask_btn_search_user value="Search">
+                    </td>
+
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div *ngIf="userError" i18n="@@AddTask_userError" class="alert alert-danger">
+                            User is required.
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input class="btn btn-primary" i18n="@@AddTask_btn_Addtask" type="submit" value="Add Task" [disabled]="error.isError || angFormAddTask.invalid"
+                            (click)="addtask(task_name.value,parent_task_name.value,start_date.value,end_date.value, priority.value)"> &nbsp;
+                    </td>
+                    <td>
+
+                        <input class="btn btn-primary" i18n="@@AddTask_btn_Reset" type="reset" value="Reset" (click)="reset()">
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
         </form>
 
     </div>

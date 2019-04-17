@@ -20,18 +20,14 @@ export class ViewTaskComponent implements OnInit {
   priorityTo = '';
   startDate: Date;
   endDate: Date;
-  angForm: FormGroup;
+  angFormViewTask: FormGroup;
   constructor(private ts: TaskService, private fb: FormBuilder, private route: ActivatedRoute, private router: Router) { this.createForm(); }
 
   //Function to create the form
   createForm() {
-    this.angForm = this.fb.group({
-      task_name: [''],
-      parent_task_name: [''],
-      priorityfrom: [''],
-      priorityto: [''],
-      startdate: [''],
-      enddate: ['']
+    this.angFormViewTask = this.fb.group({
+      ViewTask_txt_projname: [''],
+    
 
     });
   }

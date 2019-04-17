@@ -12,20 +12,22 @@ import Task from '../Task';
 export class AddTaskComponent implements OnInit {
   selectUndefinedOptionValue:any;
   tasks: Task[];
-  angForm: FormGroup;
+  angFormAddTask: FormGroup;
   title = 'Add Task';
   error: any = { isError: false, errorMessage: '' };
-  tasknameErr: boolean = false;
+  projNameError: boolean = false;
   constructor(private ts: TaskService, private fb: FormBuilder) { this.createForm(); }
 
   //Function to create the Form
   createForm() {
-    this.angForm = this.fb.group({
-      task_name: ['', Validators.required],
-      priority: [''],
-      parent_task_name: [''],
-      start_date: ['', Validators.required],
-      end_date: ['', Validators.required]
+    this.angFormAddTask = this.fb.group({
+      AddTask_txt_task_name: ['', Validators.required],
+      AddTask_txt_projname : ['',Validators.required],
+      AddTask_txt_user : ['',Validators.required],
+      AddTask_priority: [''],
+      AddTask_parent_task_name: [''],
+      AddTask_txt_start_date: ['', Validators.required],
+      AddTask_txt_end_date: ['', Validators.required]
 
 
     });
@@ -33,13 +35,13 @@ export class AddTaskComponent implements OnInit {
 
   ValidateTaskName(val) {
     if (val == undefined || val.length == 0)
-      this.tasknameErr = true;
+      this.projNameError = true;
     else
-      this.tasknameErr = false;
+      this.projNameError = false;
   }
 
   compareTwoDates() {
-    if (new Date(this.angForm.controls['end_date'].value) < new Date(this.angForm.controls['start_date'].value)) {
+    if (new Date(this.angFormAddTask.controls['end_date'].value) < new Date(this.angFormAddTask.controls['start_date'].value)) {
       this.error = { isError: true, errorMessage: "End Date can't before start date" };
     }
     else { this.error = { isError: false, errorMessage: "" }; }
