@@ -9,7 +9,7 @@ import { By } from '@angular/platform-browser';
 //import { Router, ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Directive } from '@angular/core';
-import { TaskService } from "../task.service";
+import { TaskService } from "../services/task.service";
 
 // @Directive({
 //   selector: '[routerLink], [routerLinkActive]'

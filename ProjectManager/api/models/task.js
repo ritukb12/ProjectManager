@@ -10,7 +10,9 @@ let Task = new Schema({
     start_date: {type :String },
     end_date: {type :String},
     priority: {type :String },
-    taskended: {type : Boolean}
+    taskended: {type : Boolean},
+    projectID: {type: String},
+    userID:{type:String}
     
 },{
     collection: 'task'

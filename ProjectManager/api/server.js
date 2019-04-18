@@ -7,6 +7,9 @@ config = require('./DB');
 logger = require ('./logger')
 
 const taskRoute = require('./routes/task.routes');
+const userRoute = require('./routes/user.routes');
+const projectRoute = require('./routes/project.routes');
+
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
   () => {console.log('Database is connected') },
@@ -18,6 +21,9 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(logger);
 app.use('/task', taskRoute);
+app.use('/user', userRoute);
+app.use('/project', projectRoute);
+
 let port = process.env.PORT || 4000;
 
 const server = app.listen(port, function(){

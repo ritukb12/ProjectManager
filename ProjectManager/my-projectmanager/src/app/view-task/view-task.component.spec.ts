@@ -5,7 +5,7 @@ import { SearchTaskPipe } from '../search-task.pipe'
 import { RouterTestingModule } from '@angular/router/testing';
 import {HttpClientModule} from "@angular/common/http";
 import { DatePipe } from '@angular/common';
-import { TaskService } from '../task.service';
+import { TaskService } from '../services/task.service';
 import { Observable } from 'rxjs/Rx';
 import Task from '../Task';
 import {mockTasks} from '../Tasks.mock'

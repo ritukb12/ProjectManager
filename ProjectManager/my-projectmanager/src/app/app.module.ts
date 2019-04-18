@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TaskService } from './task.service';
+import { TaskService } from './services/task.service';
 import { DatePipe } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { UpdateTaskComponent } from './update-task/update-task.component';
@@ -14,6 +14,7 @@ import { ViewTaskComponent } from './view-task/view-task.component';
 import { SearchTaskPipe } from './search-task.pipe';
 import { AddUserComponent } from './add-user/add-user.component';
 import { AddProjectComponent } from './add-project/add-project.component';
+import { SearchUserPipe } from './pipes/search-user.pipe';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AddProjectComponent } from './add-project/add-project.component';
     SearchTaskPipe,
     AddUserComponent,
     AddProjectComponent,
+    SearchUserPipe,
   ],
   imports: [
 
