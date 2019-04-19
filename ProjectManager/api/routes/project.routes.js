@@ -24,12 +24,12 @@ projectRoutes.route('/addproject').post(function (req, res) {
 
 // Defined get data(index or listing) route
 projectRoutes.route('/getallprojects').get(function (req, res) {
-  Project.find(function (err, project) {
+  Project.find(function (err, projects) {
     if (err) {
       console.log(err);
     }
     else {
-      res.json(project);
+      res.json(projects);
     }
   });
 });
@@ -85,6 +85,45 @@ projectRoutes.route('/deleteproject/:id').get(function (req, res) {
     }
     else res.json({ "Message": "Successfully removed" });
   });
+});
+
+projectRoutes.route('/sortprojects/:byCol').get(function (req, res) {
+  var col = req.params.byCol;
+  if (col == 'start_date') {
+    Project.find().sort({ start_date: 1 }).
+      then(project => {
+        res.json(project);
+      })
+      .catch(err => {
+        res.status(400).send({ "Message": "Sort unsuccessful" });
+      });
+  } else if (col == 'end_date') {
+    Project.find().sort({ end_date: 1 }).
+      then(project => {
+        res.json(project);
+      })
+      .catch(err => {
+        res.status(400).send({ "Message": "Sort unsuccessful" });
+      });
+  }
+  else if (col == 'taskended') {
+    Project.find().sort({ taskended: 1 }).
+      then(project => {
+        res.json(project);
+      })
+      .catch(err => {
+        res.status(400).send({ "Message": "Sort unsuccessful" });
+      });
+  }
+  else {
+    Project.find().sort({ priority: 1 }).
+    then(project => {
+      res.json(project);
+    })
+    .catch(err => {
+      res.status(400).send({ "Message": "Sort unsuccessful" });
+    });
+  }
 });
 
 module.exports = projectRoutes;

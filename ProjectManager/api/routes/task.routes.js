@@ -16,7 +16,7 @@ taskRoutes.route('/add').post(function (req, res) {
       res.status(200).json({ 'Message': 'Task added successfully' });
     })
     .catch(err => {
-      res.status(400).send({'Message': "Unable to save to database" + err});
+      res.status(400).send({ 'Message': "Unable to save to database" + err });
     });
 });
 
@@ -35,12 +35,24 @@ taskRoutes.route('/viewTasks').get(function (req, res) {
   });
 });
 
+
+// Defined get data(index or listing) route
+taskRoutes.route('/gettasksbyproject').get(function (req, res) {
+  Task.find({ "projectID": req.params.gettasksbyproject })
+    .then(tasks => {
+      res.json(tasks);
+    })
+    .catch(err => {
+      res.status(400).send({ "Message": "Tasks filter unsuccessful" });
+    });
+});
+
 // Defined edit route
 taskRoutes.route('/getTask/:id').get(function (req, res) {
   let id = req.params.id;
   Task.findById(id, function (err, task) {
     if (err) {
-      
+
       res.json({ success: false });
     }
     else {
@@ -67,10 +79,10 @@ taskRoutes.route('/update/:id').post(function (req, res) {
 
       task.save()
         .then(task => {
-          res.json({ "Message": "Update completed successfully"});
+          res.json({ "Message": "Update completed successfully" });
         })
         .catch(err => {
-          res.status(400).send({ "Message": "Update unsuccessful"});
+          res.status(400).send({ "Message": "Update unsuccessful" });
         });
     }
   });
@@ -88,7 +100,7 @@ taskRoutes.route('/endTask/:id').post(function (req, res) {
 
       task.save()
         .then(task => {
-          res.json({ "Message": "Update unsuccessful"});
+          res.json({ "Message": "Update unsuccessful" });
         })
         .catch(err => {
           res.status(400).send("unable to update the database");
@@ -110,6 +122,45 @@ taskRoutes.route('/delete/:id').get(function (req, res) {
 
 
 
+
+taskRoutes.route('/sorttasks/:byCol').get(function (req, res) {
+  var col = req.params.byCol;
+  if (col == 'start_date') {
+    Task.find().sort({ star_date: 1 }).
+      then(task => {
+        res.json(task);
+      })
+      .catch(err => {
+        res.status(400).send({ "Message": "Sort unsuccessful" });
+      });
+  } else if (col == 'end_date') {
+    Task.find().sort({ end_date: 1 }).
+      then(task => {
+        res.json(task);
+      })
+      .catch(err => {
+        res.status(400).send({ "Message": "Sort unsuccessful" });
+      });
+  }
+  else if (col == 'priority') {
+    Task.find().sort({ priority: 1 }).
+      then(task => {
+        res.json(task);
+      })
+      .catch(err => {
+        res.status(400).send({ "Message": "Sort unsuccessful" });
+      });
+  }
+  else {
+    Task.find().sort({ taskended: 1 }).
+      then(task => {
+        res.json(task);
+      })
+      .catch(err => {
+        res.status(400).send({ "Message": "Sort unsuccessful" });
+      });
+  }
+});
 
 
 

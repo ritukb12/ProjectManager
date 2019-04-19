@@ -3,35 +3,31 @@
     <form [formGroup]="angFormAddUser">
       <div class="form-group">
         <label for="txt_first_name" i18n="@@AddUser_first_name" id="lbl_first_name">First Name</label>
-        <input type="text" class="form-control" id="txt_first_name" formControlName="txt_first_name" required #txt_first_name (blur)="ValidateUser(txt_first_name.value)">
-        <div *ngIf="userValErr" i18n="@@AddUser_fnameerror" class="alert alert-danger">
-          First Name is required.
-        </div>
+        <input type="text" class="form-control" id="txt_first_name" formControlName="txt_first_name" required #txt_first_name [(ngModel)]="fname">
+
       </div>
       <div class="form-group">
         <label for="txt_last_name" i18n="@@AddUser_last_name" id="lbl_last_name">Last Name</label>
-        <input type="text" class="form-control" id="txt_last_name" formControlName="txt_last_name" required #txt_last_name (blur)="ValidateUser(txt_last_name.value)">
-        <div *ngIf="userValErr" i18n="@@AddUser_lnameerror" class="alert alert-danger">
-          Last Name is required.
-        </div>
+        <input type="text" class="form-control" id="txt_last_name" formControlName="txt_last_name" required #txt_last_name [(ngModel)]="lname">
+
       </div>
       <div class="form-group">
         <label for="txt_emp_id" i18n="@AddUser_emp_id" id="lbl_emp_id">Employee ID</label>
-        <input type="text" class="form-control" id="txt_emp_id" formControlName="txt_emp_id" required #txt_emp_id (blur)="ValidateUser(txt_emp_id.value)">
-        <div *ngIf="userValErr" i18n="@@AddUser_empidrror" class="alert alert-danger">
-          Emp ID is required.
-        </div>
+        <input type="text" class="form-control" id="txt_emp_id" formControlName="txt_emp_id" required #txt_emp_id [(ngModel)]="empID">
+
       </div>
-      <input class="btn btn-primary" i18n="@@AddUser_Add_user" type="submit" value="Add User" [disabled]="error.isError || angFormAddUser.invalid"
-        (click)="adduser(txt_first_name.value,txt_last_name.value,txt_emp_id.value)"> &nbsp;
-      <input class="btn btn-primary" i18n="@@AddUser_Reset_user" type="reset" value="Reset" (click)="reset()">
+      <input class="btn btn-primary" i18n="@@AddUser_Add_user" type="submit" value="Add User" [disabled]="angFormAddUser.invalid"
+        (click)="adduser(txt_first_name.value,txt_last_name.value,txt_emp_id.value)" [hidden]="updateMode"> &nbsp;
+        <input class="btn btn-primary" i18n="@@AddUser_Update_user" type="submit" value="Update User" [disabled]="angFormAddUser.invalid"
+        (click)="updateuser(txt_first_name.value,txt_last_name.value,txt_emp_id.value)" [hidden]="!updateMode"> &nbsp;
+      <input class="btn btn-primary" i18n="@@AddUser_Reset_user" type="reset" value="Reset" >
       <hr item-width="100%">
 
       <div>
         <table>
           <tr>
             <td style="width: 50%">
-              <input type="text" i18n="@@AddUser_Search_user" placeholder="Search..."   class="form-control" id="txt_search" formControlName="txt_search"
+              <input type="text" i18n="@@AddUser_Search_user" placeholder="Search..." class="form-control" id="txt_search" formControlName="txt_search"
                 #txt_search>
             </td>
             <td style="width: 10%">
@@ -41,13 +37,13 @@
             </td>
             <td style="width: 10%">
 
-              <input class="btn btn-default" i18n="@@AddUser_sort_by_fn" value="First Name">
+              <input type="button" class="btn btn-default" i18n="@@AddUser_sort_by_fn" value="First Name" (click)="sortdata('user_fname')">
             </td>
             <td style="width: 10%">
-              <input class="btn btn-default" i18n="@@AddUser_sort_by_ln" value="Last Name">
+              <input type="button" class="btn btn-default" i18n="@@AddUser_sort_by_ln" value="Last Name" (click)="sortdata('user_lname')">
             </td>
             <td style="width: 10%">
-              <input class="btn btn-default" i18n="@@AddUser_sort_by_empid" value="ID">
+              <input type="button" class="btn btn-default" i18n="@@AddUser_sort_by_empid" value="Emp ID" (click)="sortdata('user_empID')">
             </td>
           </tr>
         </table>
@@ -60,7 +56,7 @@
               <label class="form-control">{{user.user_fname}}</label>
             </td>
             <td>
-              <input class="btn btn-default" i18n="@@edit_user" value="Edit">
+              <input class="btn btn-default" i18n="@@edit_user" value="Edit" (click)="edituser(user)">
             </td>
           </tr>
           <tr>
@@ -68,7 +64,7 @@
               <label class="form-control">{{user.user_lname}}</label>
             </td>
             <td>
-              <input class="btn btn-default" i18n="@@delete_user" value="Delete">
+              <input class="btn btn-default" i18n="@@delete_user" value="Delete" (click)="deleteuser(user._id)" >
             </td>
           </tr>
           <tr>

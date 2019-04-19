@@ -9,27 +9,27 @@
                         </td>
                         <td style="width:50%">
                             <input type="text" disabled class="form-control" id="ViewTask_txt_projname" formControlName="ViewTask_txt_projname" required
-                                #ViewTask_txt_projname (blur)="ValidateTaskName(ViewTask_txt_projname.value)">
+                                #ViewTask_txt_projname  [(ngModel)]="selectedProject.Project_name">
                         </td>
-                        <td >
-                            <input type="button" i18n="@@ViewTask_SearchProj" class="btn btn-default" value="Search" #ViewTask_SearchProj>
+                        <td>
+                            <a i18n="@@ViewTask_SearchProj" data-toggle="modal" data-target="#projectModalDialog" class="btn btn-default" #ViewTask_SearchProj>Search</a>
                         </td>
                         <td style="width:10%">
                             <label i18n="@lbl_ViewTask_sortby" id="lbl_ViewTask_sortby" style="text-align:right">Sort by: </label>
                         </td>
                         <td>
 
-                            <input  type="button" class="btn btn-default"  i18n="@@btn_ViewTask_sortby_sd" value="Start Date">
+                            <input type="button" class="btn btn-default" i18n="@@btn_ViewTask_sortby_sd" value="Start Date" (click)="sortdata('start_date')">
                         </td>
                         <td>
-                            <input  type="button" class="btn btn-default" i18n="@@btn_ViewTask_sortby_ed" value="End Date">
+                            <input type="button" class="btn btn-default" i18n="@@btn_ViewTask_sortby_ed" value="End Date" (click)="sortdata('end_date')">
                         </td>
 
                         <td>
-                            <input  type="button" class="btn btn-default"  i18n="@@btn_ViewTask_sortby_p" value="Priority">
+                            <input type="button" class="btn btn-default" i18n="@@btn_ViewTask_sortby_p" value="Priority" (click)="sortdata('priority')">
                         </td>
                         <td>
-                            <input  type="button" class="btn btn-default"  i18n="@@btn_ViewTask_sortby_comp" value="Completed">
+                            <input type="button" class="btn btn-default" i18n="@@btn_ViewTask_sortby_comp" value="Completed" (click)="sortdata('taskended')">
                         </td>
                     </tr>
                 </table>
@@ -48,7 +48,7 @@
                             <th scope="col" i18n="@@ViewTask_taskedate">End</th>
                             <th scope="col" i18n="@@ViewTask_taskedit">Edit</th>
                             <th scope="col" i18n="@@ViewTask_taskend">End Task</th>
-                            
+
                         </tr>
                     </thead>
                     <tbody>
@@ -64,7 +64,7 @@
                             <td scope="col">
                                 <a class="btn btn-primary" i18n="@@ViewTask_taskendbtn" id="end" (click)="endTask(task._id)" [class.disabled]="task.taskended">End</a>
                             </td>
-                           
+
                         </tr>
                     </tbody>
 
@@ -74,3 +74,29 @@
         </div>
     </div>
 </div>
+
+
+<!--Project Modal-->
+<div id="projectModalDialog" tabindex="-1" aria-labelledby="popup-title" aria-hidden="true" class="modal fade" role="dialog">
+        <div class="modal-dialog" role="document">
+    
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Select a project</h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group">
+                        <li class="list-group-item" *ngFor="let project of projects">
+                            <a (click)="projectSelected(project)">{{project.Project_name}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+    
+        </div>
+    </div>

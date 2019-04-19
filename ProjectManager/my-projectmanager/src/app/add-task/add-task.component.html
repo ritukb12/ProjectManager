@@ -8,21 +8,14 @@
                     </td>
                     <td style="width:80%">
                         <input type="text" disabled class="form-control" id="projname" formControlName="AddTask_txt_projname" required #AddTask_txt_projname
-                            (blur)="ValidateTaskName(AddTask_txt_projname.value)">
+                         [(ngModel)]="selectedProject.Project_name"   >
                     </td>
                     <td>
-                        <input type="button" i18n="@@AddTask_SearchProj" class="btn btn-default" value="Search" #AddTask_SearchProj>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-
-                        <div *ngIf="projNameError" i18n="@@AddTask_projNameError" class="alert alert-danger">
-                            Project Name is required.
-                        </div>
+                        <a i18n="@@AddTask_SearchProj" data-toggle="modal" data-target="#projectModalDialog" class="btn btn-default" #AddTask_SearchProj>Search</a>
 
                     </td>
                 </tr>
+              
                 <tr>
                     <td>
 
@@ -33,7 +26,7 @@
                     <td>
 
                         <input type="text" class="form-control" id="AddTask_txt_task_name" formControlName="AddTask_txt_task_name" required #AddTask_txt_task_name
-                            (blur)="ValidateTaskName(AddTask_txt_task_name.value)">
+                          >
 
                     </td>
                     <td></td>
@@ -42,18 +35,12 @@
                 <tr>
                     <td></td>
                     <td>
-                        <input type="checkbox" i18n="@@AddTask_ParentFlag" checked>Parent Task
+                        <input type="checkbox"  (change)="parentFlagChanged($event)" i18n="@@AddTask_ParentFlag" >Parent Task
                     </td>
                     <td></td>
 
                 </tr>
-                <tr>
-                    <td colspan="3">
-                        <div *ngIf="tasknameErr" i18n="@@AddTask_taskerror" class="alert alert-danger">
-                            Task Name is required.
-                        </div>
-                    </td>
-                </tr>
+               
                 <tr>
                     <td>
                         <label for="AddTask_priority" i18n="@@AddTask_lbl_priority">Priority</label>
@@ -65,7 +52,7 @@
                     </td>
                     <td></td>
                 </tr>
-                <tr>
+                <tr [hidden]="!parentVisible">
                     <td>
                         <label for="parenttask" i18n="@@AddTask_lbl_parent_task_name">Select Parent Task</label>
                     </td>
@@ -110,20 +97,14 @@
                         <label for="user" i18n="@@AddTask_lbl_user">User</label>
                     </td>
                     <td>
-                        <input type="text" disabled class="form-control" formControlName="AddTask_txt_user" #AddTask_txt_user required>
+                        <input type="text" [(ngModel)]="selectedUser.user_fname"  disabled class="form-control" formControlName="AddTask_txt_user" #AddTask_txt_user required>
                     </td>
                     <td>
-                        <input type="button" i18n="@@AddTask_btn_search_user" class="btn btn-default" #AddTask_btn_search_user value="Search">
+                            <a i18n="@@AddTask_SearchUser" data-toggle="modal" data-target="#userModalDialog" class="btn btn-default" #AddTask_SearchUser>Search</a>
                     </td>
 
                 </tr>
-                <tr>
-                    <td colspan="3">
-                        <div *ngIf="userError" i18n="@@AddTask_userError" class="alert alert-danger">
-                            User is required.
-                        </div>
-                    </td>
-                </tr>
+                
                 <tr>
                     <td colspan="3">
                         &nbsp;
@@ -132,7 +113,7 @@
                 <tr>
                     <td>
                         <input class="btn btn-primary" i18n="@@AddTask_btn_Addtask" type="submit" value="Add Task" [disabled]="error.isError || angFormAddTask.invalid"
-                            (click)="addtask(task_name.value,parent_task_name.value,start_date.value,end_date.value, priority.value)"> &nbsp;
+                            (click)="addtask(selectedProject._id, AddTask_txt_task_name.value,AddTask_parent_task_name.value,AddTask_txt_start_date.value,AddTask_txt_end_date.value, AddTask_priority.value, selectedUser._id)"> &nbsp;
                     </td>
                     <td>
 
@@ -145,3 +126,57 @@
 
     </div>
 </div>
+
+
+
+<!--Project Modal-->
+<div id="projectModalDialog" tabindex="-1" aria-labelledby="popup-title" aria-hidden="true" class="modal fade" role="dialog">
+    <div class="modal-dialog" role="document">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Select a project</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let project of projects">
+                        <a (click)="projectSelected(project)">{{project.Project_name}}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!--User Modal-->
+<div id="userModalDialog" tabindex="-1" aria-labelledby="popup-title" aria-hidden="true" class="modal fade" role="dialog">
+        <div class="modal-dialog" role="document">
+    
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Select a user</h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group">
+                        <li class="list-group-item" *ngFor="let user of users">
+                            <a id="userselection" (click)="userSelected(user)">{{user.user_empID}} - {{user.user_fname}} {{user.user_lname}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+    
+        </div>
+    </div>

@@ -16,7 +16,7 @@ userRoutes.route('/adduser').post(function (req, res) {
       res.status(200).json({ 'Message': 'User added successfully' });
     })
     .catch(err => {
-      res.status(400).send({'Message': "Unable to save to database" + err});
+      res.status(400).send({ 'Message': "Unable to save to database" + err });
     });
 });
 
@@ -40,7 +40,7 @@ userRoutes.route('/getuser/:id').get(function (req, res) {
   let id = req.params.id;
   User.findById(id, function (err, user) {
     if (err) {
-      
+
       res.json({ success: false });
     }
     else {
@@ -65,10 +65,10 @@ userRoutes.route('/updateuser/:id').post(function (req, res) {
 
       user.save()
         .then(user => {
-          res.json({ "Message": "Update completed successfully"});
+          res.json({ "Message": "Update completed successfully" });
         })
         .catch(err => {
-          res.status(400).send({ "Message": "Update unsuccessful"});
+          res.status(400).send({ "Message": "Update unsuccessful" });
         });
     }
   });
@@ -85,6 +85,36 @@ userRoutes.route('/delete/:id').get(function (req, res) {
   });
 });
 
+
+userRoutes.route('/sortusers/:byCol').get(function (req, res) {
+  var col = req.params.byCol;
+  if (col == 'user_fname') {
+    User.find().sort({ user_fname: 1 }).
+      then(user => {
+        res.json(user);
+      })
+      .catch(err => {
+        res.status(400).send({ "Message": "Sort unsuccessful" });
+      });
+  } else if (col == 'user_lname') {
+    User.find().sort({ user_lname: 1 }).
+      then(user => {
+        res.json(user);
+      })
+      .catch(err => {
+        res.status(400).send({ "Message": "Sort unsuccessful" });
+      });
+  }
+  else {
+    User.find().sort({ user_empID: 1 }).
+    then(user => {
+      res.json(user);
+    })
+    .catch(err => {
+      res.status(400).send({ "Message": "Sort unsuccessful" });
+    });
+  }
+});
 
 module.exports = userRoutes;
 

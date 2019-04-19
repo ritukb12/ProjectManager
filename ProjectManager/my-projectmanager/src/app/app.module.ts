@@ -15,6 +15,7 @@ import { SearchTaskPipe } from './search-task.pipe';
 import { AddUserComponent } from './add-user/add-user.component';
 import { AddProjectComponent } from './add-project/add-project.component';
 import { SearchUserPipe } from './pipes/search-user.pipe';
+import { SearchProjectPipe } from './pipes/search-project.pipe';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { SearchUserPipe } from './pipes/search-user.pipe';
     AddUserComponent,
     AddProjectComponent,
     SearchUserPipe,
+    SearchProjectPipe,
   ],
   imports: [
 

@@ -11,7 +11,7 @@ export class SearchUserPipe implements PipeTransform {
         if (searchVal && (
           item.user_fname.indexOf(searchVal) === -1
           && item.user_lname.indexOf(searchVal) === -1
-          && item.user_empid.indexOf(searchVal) === -1
+          && item.user_empID.indexOf(searchVal) === -1
         )) {
           return false;
         }

@@ -31,6 +31,13 @@ export class UserService {
       .get(`${this.uri}/getallusers`);
   }
 
+
+  sortdata(byCol): Observable<any>  {
+    return this
+      .http
+      .get(`${this.uri}/sortusers/${byCol}`);
+  }
+
   //Function to edit a task
   editUser(id): Observable<any>  {
     return this
