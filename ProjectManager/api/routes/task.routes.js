@@ -37,8 +37,8 @@ taskRoutes.route('/viewTasks').get(function (req, res) {
 
 
 // Defined get data(index or listing) route
-taskRoutes.route('/gettasksbyproject').get(function (req, res) {
-  Task.find({ "projectID": req.params.gettasksbyproject })
+taskRoutes.route('/gettasksbyproject/:projectId').get(function (req, res) {
+  Task.find({ "projectID": req.params.projectId })
     .then(tasks => {
       res.json(tasks);
     })

@@ -7,20 +7,31 @@
             <label for="AddProj_projName" i18n="@@lbl_AddProj_projName" id="lbl_AddProj_projName">Project:</label>
           </td>
           <td>
-            <input type="text" class="form-control" id="AddProj_projName" formControlName="AddProj_projName" required #AddProj_projName
-              >
+            <input type="text" class="form-control" id="AddProj_projName" formControlName="AddProj_projName" required #AddProj_projName>
           </td>
         </tr>
         <tr>
           <td></td>
           <td colspan="2">
-            <input type="checkbox" i18n="@@AddProj_date_flag" formControlName="AddProj_date_flag" #AddProj_date_flag (click)="toggleFlag();">Set Start date and End date
+            <input type="checkbox" (change)="dateFlagChanged($event)" i18n="@@AddProj_date_flag" formControlName="AddProj_date_flag"
+              #AddProj_date_flag (click)="toggleFlag();">Set Start date and End date
 
-            <input type="date" class="form-control" formControlName="AddProj_start_date" (blur)="compareTwoDates()" #AddProj_start_date
-              [disabled]="!isDateEntryEnabled" class="btn btn-default">
-            <input type="date" class="form-control" formControlName="AddProj_end_date" #AddProj_end_date (blur)="compareTwoDates()" #AddProj_end_date
-              [disabled]="!isDateEntryEnabled" class="btn btn-default">
           </td>
+        </tr>
+        <tr [hidden]="!isDateEntryEnabled">
+          <td></td>
+          <td colspan="2">
+            <input type="date" formControlName="AddProj_start_date" (blur)="compareTwoDates()" #AddProj_start_date>
+            <input type="date" formControlName="AddProj_end_date" #AddProj_end_date (blur)="compareTwoDates()" #AddProj_end_date [disabled]="isDateEntryEnabled">
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <div *ngIf="error.isError" i18n="@@AddProj_error" class="alert alert-danger">
+              {{ error.errorMessage }}
+            </div>
+          </td>
+
         </tr>
         <tr>
           <td>
@@ -38,10 +49,11 @@
             <label for="AddProj_manager" i18n="@@lbl_AddProj_manager">Manager:</label>
           </td>
           <td style="width:80%">
-              <input type="text" [(ngModel)]="selectedUser.user_fname"  disabled class="form-control" formControlName="Addproj_manager" #Addproj_manager required>
+            <input type="text" [(ngModel)]="selectedUser.user_fname" disabled class="form-control" formControlName="Addproj_manager"
+              #Addproj_manager required>
           </td>
           <td style="width:10%">
-              <a i18n="@@AddProj_SearchUser" data-toggle="modal" data-target="#userModalDialog" class="btn btn-default" #AddProj_SearchUser>Search</a>
+            <a i18n="@@AddProj_SearchUser" data-toggle="modal" data-target="#userModalDialog" class="btn btn-default" #AddProj_SearchUser>Search</a>
           </td>
         </tr>
         <tr>
@@ -64,7 +76,7 @@
         <table>
           <tr>
             <td style="width: 100%" colspan="5">
-                <input type="text" i18n="@@AddProj_Search_user" placeholder="Search..." class="form-control" id="txt_search" formControlName="txt_search"
+              <input type="text" i18n="@@AddProj_Search_user" placeholder="Search..." class="form-control" id="txt_search" formControlName="txt_search"
                 #txt_search>
             </td>
           </tr>
@@ -164,25 +176,25 @@
 
 <!--User Modal-->
 <div id="userModalDialog" tabindex="-1" aria-labelledby="popup-title" aria-hidden="true" class="modal fade" role="dialog">
-    <div class="modal-dialog" role="document">
+  <div class="modal-dialog" role="document">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Select a user</h4>
-            </div>
-            <div class="modal-body">
-                <ul class="list-group">
-                    <li class="list-group-item" *ngFor="let user of users">
-                        <a id="userselection" (click)="userSelected(user)">{{user.user_empID}} - {{user.user_fname}} {{user.user_lname}}</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Select a user</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let user of users">
+            <a id="userselection" (click)="userSelected(user)">{{user.user_empID}} - {{user.user_fname}} {{user.user_lname}}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
+
+  </div>
 </div>

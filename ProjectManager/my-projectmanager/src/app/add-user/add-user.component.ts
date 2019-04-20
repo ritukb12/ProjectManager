@@ -46,7 +46,7 @@ export class AddUserComponent implements OnInit {
   sortdata(param) {
     this.userService.sortdata(param).subscribe(
       (data: User[]) => {
-        this.users = data;
+        this.users = data;  
       }
     )
   }
@@ -67,7 +67,7 @@ export class AddUserComponent implements OnInit {
 
   //Function to delete task
   deleteuser(user_id) {
-    if (window.confirm("Are you sure you want to delete this Task?")) {
+    if (window.confirm("Are you sure you want to delete this user?")) {
       this.userService.deleteUser(user_id).subscribe(res => {
         this.userService
           .getUsers()

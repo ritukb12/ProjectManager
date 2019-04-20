@@ -38,6 +38,9 @@ export class AddProjectComponent implements OnInit {
     this.selectedUser = user;
   }
 
+  dateFlagChanged(event: any) {
+    this.isDateEntryEnabled = event.target.checked;
+  }
 
   getAllUsers() {
     this.userService
