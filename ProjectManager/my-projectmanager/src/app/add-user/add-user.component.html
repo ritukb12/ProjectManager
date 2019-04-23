@@ -16,11 +16,13 @@
         <input type="text" class="form-control" id="txt_emp_id" formControlName="txt_emp_id" required #txt_emp_id [(ngModel)]="empID">
 
       </div>
-      <input class="btn btn-primary" i18n="@@AddUser_Add_user" type="submit" value="Add User" [disabled]="angFormAddUser.invalid"
+      <div>
+      <input i18n="@@AddUser_Add_user"   type="button" value="Add User" [disabled]="angFormAddUser.invalid"
         (click)="adduser(txt_first_name.value,txt_last_name.value,txt_emp_id.value)" [hidden]="updateMode"> &nbsp;
-        <input class="btn btn-primary" i18n="@@AddUser_Update_user" type="submit" value="Update User" [disabled]="angFormAddUser.invalid"
-        (click)="updateuser(txt_first_name.value,txt_last_name.value,txt_emp_id.value)" [hidden]="!updateMode"> &nbsp;
-      <input class="btn btn-primary" i18n="@@AddUser_Reset_user" type="reset" value="Reset" >
+      <input i18n="@@AddUser_Update_user" type="button" value="Update User" [disabled]="angFormAddUser.invalid"
+        (click)="updateuser()" [hidden]="!updateMode"> &nbsp;
+      <input i18n="@@AddUser_Reset_user" type="reset" value="Reset">
+    </div>
       <hr item-width="100%">
 
       <div>
@@ -64,7 +66,7 @@
               <label class="form-control">{{user.user_lname}}</label>
             </td>
             <td>
-              <input class="btn btn-default" i18n="@@delete_user" value="Delete" (click)="deleteuser(user._id)" >
+              <input class="btn btn-default" i18n="@@delete_user" value="Delete" (click)="deleteuser(user._id)">
             </td>
           </tr>
           <tr>

@@ -100,10 +100,10 @@ taskRoutes.route('/endTask/:id').post(function (req, res) {
 
       task.save()
         .then(task => {
-          res.json({ "Message": "Update unsuccessful" });
+          res.json({ "Message": "Update successful" });
         })
         .catch(err => {
-          res.status(400).send("unable to update the database");
+          res.status(400).send("Unable to update the database");
         });
     }
   });

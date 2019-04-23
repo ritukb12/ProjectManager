@@ -7,23 +7,37 @@
             <label for="AddProj_projName" i18n="@@lbl_AddProj_projName" id="lbl_AddProj_projName">Project:</label>
           </td>
           <td>
-            <input type="text" class="form-control" id="AddProj_projName" formControlName="AddProj_projName" required #AddProj_projName>
+            <input type="text" class="form-control" id="AddProj_projName" formControlName="AddProj_projName" required [(ngModel)]="proj_Name"
+              #AddProj_projName>
           </td>
         </tr>
         <tr>
           <td></td>
           <td colspan="2">
             <input type="checkbox" (change)="dateFlagChanged($event)" i18n="@@AddProj_date_flag" formControlName="AddProj_date_flag"
-              #AddProj_date_flag (click)="toggleFlag();">Set Start date and End date
+              #AddProj_date_flag [checked]="isDateEntryEnabled" (click)="toggleFlag();">Set Start date and End date
 
           </td>
         </tr>
         <tr [hidden]="!isDateEntryEnabled">
-          <td></td>
-          <td colspan="2">
-            <input type="date" formControlName="AddProj_start_date" (blur)="compareTwoDates()" #AddProj_start_date>
-            <input type="date" formControlName="AddProj_end_date" #AddProj_end_date (blur)="compareTwoDates()" #AddProj_end_date [disabled]="isDateEntryEnabled">
+          <td>
+            <label for="AddProj_startdatelbl" i18n="@@lbl_AddProj_startdate" id="lbl_AddProj_startdate">Start Date</label>
           </td>
+          <td>
+            <input type="date" class="form-control" formControlName="AddProj_start_date" (blur)="compareTwoDates()" [(ngModel)]="proj_start_date"
+              #AddProj_start_date>
+          </td>
+          <td></td>
+        </tr>
+        <tr [hidden]="!isDateEntryEnabled">
+          <td>
+            <label for="AddProj_enddatelbl" i18n="@@lbl_AddProj_enddate" id="lbl_AddProj_enddate">End Date</label>
+          </td>
+          <td>
+            <input type="date" class="form-control" formControlName="AddProj_end_date" #AddProj_end_date (blur)="compareTwoDates()" #AddProj_end_date
+              [(ngModel)]="proj_end_date" [disabled]="isDateEntryEnabled">
+          </td>
+          <td></td>
         </tr>
         <tr>
           <td colspan="3">
@@ -31,7 +45,6 @@
               {{ error.errorMessage }}
             </div>
           </td>
-
         </tr>
         <tr>
           <td>
@@ -39,7 +52,8 @@
           </td>
           <td>
             <div class="slidecontainer">
-              <input type="range" min="0" max="100" value="0" class="slider form-control" #AddProj_priority formControlName="AddProj_priority">
+              <input type="range" min="0" max="100" value="0" class="slider form-control" [(ngModel)]="proj_priority" #AddProj_priority
+                formControlName="AddProj_priority">
             </div>
           </td>
           <td></td>
@@ -59,16 +73,19 @@
         <tr>
           <td colspan="3">&nbsp;</td>
         </tr>
-        <tr>
-          <td>
-            <input class="btn btn-primary" i18n="@@btn_addProj_submit" type="submit" value="Add Project" [disabled]="error.isError || angFormAddProject.invalid"
-              (click)="addproject(AddProj_projName.value,AddProj_priority.value,AddProj_start_date.value, AddProj_end_date.value,selectedUser._id)">
-
+        <tr *ngIf = "!updateMode">
+          <td colspan="3"  >
+            <input i18n="@@btn_addProj_addsubmit" class="btn btn-primary" type="button" value="Add Project" [hidden]="updateMode" [disabled]="error.isError || angFormAddProject.invalid"
+              (click)="addproject(AddProj_projName.value,AddProj_priority.value,AddProj_start_date.value, AddProj_end_date.value,selectedUser._id)"> &nbsp;
+            <input i18n="@@AddProj_Reset1" type="reset" class="btn btn-primary" value="Reset" >
           </td>
-          <td>
-            <input class="btn btn-primary" i18n="@@AddProj_Reset" type="reset" value="Reset" (click)="reset()">
+        </tr>
+        <tr *ngIf = "updateMode">
+          <td colspan="3" >
+            <input i18n="@@btn_addProj_updatesubmit"  type="button"  class="btn btn-primary" value="Update Project"  [disabled]="error.isError || angFormAddProject.invalid"
+              (click)="updateproject(AddProj_projName.value,AddProj_priority.value,AddProj_start_date.value, AddProj_end_date.value,selectedUser._id)"> &nbsp;
+            <input i18n="@@AddProj_Reset2" type="reset" value="Reset" class="btn btn-primary">
           </td>
-          <td></td>
         </tr>
       </table>
       <hr item-width="100%">
@@ -124,7 +141,7 @@
               </td>
               <td style="width: 2%"></td>
               <td style="width: 10%">
-                <input type="button" class="btn btn-default" value="Update" i18n="btn_AddProj_Update">
+                <input type="button" class="btn btn-default" value="Update" i18n="btn_AddProj_Update" (click)="editproject(project)">
               </td>
             </tr>
             <tr>
@@ -146,7 +163,7 @@
               </td>
               <td style="width: 2%"></td>
               <td>
-                <input type="button" i18n="@@row_btn_Suspend" class="btn btn-default" value="Suspend">
+                <input type="button" i18n="@@row_btn_Suspend" class="btn btn-default" value="Suspend" (click)="suspendProject(project._id)">
               </td>
             </tr>
             <tr>
@@ -177,7 +194,6 @@
 <!--User Modal-->
 <div id="userModalDialog" tabindex="-1" aria-labelledby="popup-title" aria-hidden="true" class="modal fade" role="dialog">
   <div class="modal-dialog" role="document">
-
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
@@ -185,16 +201,21 @@
         <h4 class="modal-title">Select a user</h4>
       </div>
       <div class="modal-body">
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let user of users">
-            <a id="userselection" (click)="userSelected(user)">{{user.user_empID}} - {{user.user_fname}} {{user.user_lname}}</a>
-          </li>
-        </ul>
+        <form [formGroup]="angFormSearchUser">
+          <div class="form-group">
+            <input type="text" i18n="@@AddProject_txt_SearchUser" placeholder="Search..." class="form-control" id="txt_SearchUser" formControlName="txt_SearchUser"
+              #txt_SearchUser>
+            <br/>
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let user of users | SearchUser : txt_SearchUser.value">
+                <a id="userselection" (click)="userSelected(user)">{{user.user_empID}} - {{user.user_fname}} {{user.user_lname}}</a>
+              </li>
+            </ul>
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
-
   </div>
-</div>

@@ -40,7 +40,6 @@ userRoutes.route('/getuser/:id').get(function (req, res) {
   let id = req.params.id;
   User.findById(id, function (err, user) {
     if (err) {
-
       res.json({ success: false });
     }
     else {

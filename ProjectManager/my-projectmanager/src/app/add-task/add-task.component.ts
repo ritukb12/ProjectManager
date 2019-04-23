@@ -16,6 +16,8 @@ export class AddTaskComponent implements OnInit {
   selectUndefinedOptionValue: any;
   tasks: Task[];
   angFormAddTask: FormGroup;
+  angFormSearchProj: FormGroup;
+  angFormSearchUser: FormGroup;
   title = 'Add Task';
   error: any = { isError: false, errorMessage: '' };
   projNameError: boolean = false;
@@ -58,8 +60,13 @@ export class AddTaskComponent implements OnInit {
       AddTask_parent_task_name: [''],
       AddTask_txt_start_date: ['', Validators.required],
       AddTask_txt_end_date: ['', Validators.required]
+    });
+    this.angFormSearchProj = this.fb.group({
+      txt_SearchProj: ['']
+    })
 
-
+    this.angFormSearchUser = this.fb.group({
+      txt_SearchUser: ['']
     });
   }
 

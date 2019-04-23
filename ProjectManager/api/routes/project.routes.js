@@ -15,11 +15,27 @@ projectRoutes.route('/addproject').post(function (req, res) {
       res.status(200).json({ 'Message': 'Project added successfully' });
     })
     .catch(err => {
-      res.status(400).send({'Message': "Unable to save to database" + err});
+      res.status(400).send({ 'Message': "Unable to save to database" + err });
     });
 });
 
-
+//  Defined update route
+projectRoutes.route('/suspendproject/:id').post(function (req, res) {
+  Project.findById(req.params.id, function (err, project) {
+    if (!project)
+      res.status(200).json({ "Message": "Could not find Project to suspend" });
+    else {
+      project.projectended = true;
+      project.save()
+        .then(project => {
+          res.json({ "Message": "Update successful" });
+        })
+        .catch(err => {
+          res.status(400).send("unable to update the database");
+        });
+    }
+  });
+});
 
 
 // Defined get data(index or listing) route
@@ -39,7 +55,7 @@ projectRoutes.route('/getproject/:id').get(function (req, res) {
   let id = req.params.id;
   Project.findById(id, function (err, project) {
     if (err) {
-      
+
       res.json({ success: false });
     }
     else {
@@ -56,20 +72,17 @@ projectRoutes.route('/updateproject/:id').post(function (req, res) {
     if (!project)
       res.status(200).json({ "Message": "Could not find Project to update" });
     else {
-      project.project_name = req.body.project_name;
-      project.parent_project_name = req.body.parent_project_name;
+      project.Project_name = req.body.Project_name;
+      project.manager_ID = req.body.manager_ID;
       project.start_date = req.body.start_date;
       project.end_date = req.body.end_date;
       project.priority = req.body.priority;
-      // project.business_name = req.body.business_name;
-      // project.business_gst_number = req.body.business_gst_number;
-
       project.save()
         .then(project => {
-          res.json({ "Message": "Update completed successfully"});
+          res.json({ "Message": "Update completed successfully" });
         })
         .catch(err => {
-          res.status(400).send({ "Message": "Update unsuccessful"});
+          res.status(400).send({ "Message": "Update unsuccessful" });
         });
     }
   });
@@ -106,7 +119,7 @@ projectRoutes.route('/sortprojects/:byCol').get(function (req, res) {
         res.status(400).send({ "Message": "Sort unsuccessful" });
       });
   }
-  else if (col == 'taskended') {
+  else if (col == 'projectended') {
     Project.find().sort({ taskended: 1 }).
       then(project => {
         res.json(project);
@@ -117,12 +130,12 @@ projectRoutes.route('/sortprojects/:byCol').get(function (req, res) {
   }
   else {
     Project.find().sort({ priority: 1 }).
-    then(project => {
-      res.json(project);
-    })
-    .catch(err => {
-      res.status(400).send({ "Message": "Sort unsuccessful" });
-    });
+      then(project => {
+        res.json(project);
+      })
+      .catch(err => {
+        res.status(400).send({ "Message": "Sort unsuccessful" });
+      });
   }
 });
 
