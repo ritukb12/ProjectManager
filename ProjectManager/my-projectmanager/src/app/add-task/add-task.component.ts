@@ -134,6 +134,8 @@ export class AddTaskComponent implements OnInit {
     this.error = { isError: false, errorMessage: "" };
   }
 
+ 
+
   //Get All tasks on Init
   ngOnInit() {
     this.getAllTasks();

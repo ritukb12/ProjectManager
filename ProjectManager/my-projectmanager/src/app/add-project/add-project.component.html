@@ -73,16 +73,16 @@
         <tr>
           <td colspan="3">&nbsp;</td>
         </tr>
-        <tr *ngIf = "!updateMode">
-          <td colspan="3"  >
+        <tr *ngIf="!updateMode">
+          <td colspan="3">
             <input i18n="@@btn_addProj_addsubmit" class="btn btn-primary" type="button" value="Add Project" [hidden]="updateMode" [disabled]="error.isError || angFormAddProject.invalid"
               (click)="addproject(AddProj_projName.value,AddProj_priority.value,AddProj_start_date.value, AddProj_end_date.value,selectedUser._id)"> &nbsp;
-            <input i18n="@@AddProj_Reset1" type="reset" class="btn btn-primary" value="Reset" >
+            <input i18n="@@AddProj_Reset1" type="reset" class="btn btn-primary" value="Reset">
           </td>
         </tr>
-        <tr *ngIf = "updateMode">
-          <td colspan="3" >
-            <input i18n="@@btn_addProj_updatesubmit"  type="button"  class="btn btn-primary" value="Update Project"  [disabled]="error.isError || angFormAddProject.invalid"
+        <tr *ngIf="updateMode">
+          <td colspan="3">
+            <input i18n="@@btn_addProj_updatesubmit" type="button" class="btn btn-primary" value="Update Project" [disabled]="error.isError || angFormAddProject.invalid"
               (click)="updateproject(AddProj_projName.value,AddProj_priority.value,AddProj_start_date.value, AddProj_end_date.value,selectedUser._id)"> &nbsp;
             <input i18n="@@AddProj_Reset2" type="reset" value="Reset" class="btn btn-primary">
           </td>

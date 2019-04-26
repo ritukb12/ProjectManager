@@ -1,12 +1,10 @@
 // business.route.js
-
 const express = require('express');
 const app = express();
 const userRoutes = express.Router();
 
 // Require Business model in our routes module
 let User = require('../models/user');
-//let ParentTask = require('../models/parentuser');
 
 // Defined store route
 userRoutes.route('/adduser').post(function (req, res) {
@@ -16,18 +14,15 @@ userRoutes.route('/adduser').post(function (req, res) {
       res.status(200).json({ 'Message': 'User added successfully' });
     })
     .catch(err => {
-      res.status(400).send({ 'Message': "Unable to save to database" + err });
+      res.status(400).send({ 'Message': "Unable to save to database"});
     });
 });
-
-
-
 
 // Defined get data(index or listing) route
 userRoutes.route('/getallusers').get(function (req, res) {
   User.find(function (err, user) {
     if (err) {
-      console.log(err);
+      res.json({ success: false });
     }
     else {
       res.json(user);
@@ -40,7 +35,7 @@ userRoutes.route('/getuser/:id').get(function (req, res) {
   let id = req.params.id;
   User.findById(id, function (err, user) {
     if (err) {
-      res.json({ success: false });
+      res.json({  "Message": "Could not get user" });
     }
     else {
       res.json(user);
@@ -59,9 +54,6 @@ userRoutes.route('/updateuser/:id').post(function (req, res) {
       user.user_fname = req.body.user_fname;
       user.user_lname = req.body.user_lname;
       user.empID = req.body.user_empid;
-      // user.business_name = req.body.business_name;
-      // user.business_gst_number = req.body.business_gst_number;
-
       user.save()
         .then(user => {
           res.json({ "Message": "Update completed successfully" });
@@ -83,7 +75,6 @@ userRoutes.route('/delete/:id').get(function (req, res) {
     else res.json({ "Message": "Successfully removed" });
   });
 });
-
 
 userRoutes.route('/sortusers/:byCol').get(function (req, res) {
   var col = req.params.byCol;
