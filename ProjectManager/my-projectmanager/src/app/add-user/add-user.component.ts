@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import User from '../User';
 import { SearchUserPipe } from '../Pipes/search-user.pipe'
+
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',

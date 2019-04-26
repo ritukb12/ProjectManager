@@ -4,14 +4,14 @@
             <table>
                 <tr>
                     <td>
-                        <label for="proj" i18n="@@AddTask_Project" id="proj">Project</label>
+                        <label for="proj" i18n="@@addTask_lblProject" id="addTask_lblProject">Project</label>
                     </td>
                     <td style="width:80%">
-                        <input type="text" disabled class="form-control" id="projname" formControlName="AddTask_txt_projname" required #AddTask_txt_projname
-                            [(ngModel)]="selectedProject.Project_name">
+                        <input type="text" disabled class="form-control" id="addTask_txtProjectName" formControlName="addTask_txtProjectName" required
+                            #addTask_txtProjectName [(ngModel)]="selectedProject.Project_name">
                     </td>
                     <td>
-                        <a i18n="@@AddTask_SearchProj" data-toggle="modal" data-target="#projectModalDialog" class="btn btn-default" #AddTask_SearchProj>Search</a>
+                        <a i18n="@@addTask_btnSearchProj" data-toggle="modal" data-target="#projectModalDialog" class="btn btn-default" #addTask_btnSearchProj>Search</a>
 
                     </td>
                 </tr>
@@ -19,13 +19,13 @@
                 <tr>
                     <td>
 
-                        <label i18n="@@AddTask_task_name" id="AddTask_task_name">Task</label>
+                        <label i18n="@@addTask_lblTaskName" id="addTask_lblTaskName">Task</label>
 
 
                     </td>
                     <td>
 
-                        <input type="text" class="form-control" id="AddTask_txt_task_name" formControlName="AddTask_txt_task_name" required #AddTask_txt_task_name>
+                        <input type="text" class="form-control" id="addTask_txtTaskName" formControlName="addTask_txtTaskName" required #addTask_txtTaskName>
 
                     </td>
                     <td></td>
@@ -34,7 +34,7 @@
                 <tr>
                     <td></td>
                     <td>
-                        <input type="checkbox" (change)="parentFlagChanged($event)" i18n="@@AddTask_ParentFlag">Parent Task
+                        <input type="checkbox" (change)="parentFlagChanged($event)" i18n="@@addTask_chkParentFlag">Parent Task
                     </td>
                     <td></td>
 
@@ -42,22 +42,22 @@
 
                 <tr>
                     <td>
-                        <label for="AddTask_priority" i18n="@@AddTask_lbl_priority">Priority</label>
+                        <label for="addTask_sliPriority" i18n="@@addTask_lblPriority">Priority</label>
                     </td>
                     <td>
                         <div class="slidecontainer">
-                            <input type="range" min="0" max="100" value="30" class="slider form-control" #AddTask_priority formControlName="AddTask_priority">
+                            <input type="range" min="0" max="100" value="30" class="slider form-control" #addTask_sliPriority formControlName="addTask_sliPriority">
                         </div>
                     </td>
                     <td></td>
                 </tr>
                 <tr [hidden]="!parentVisible">
                     <td>
-                        <label for="parenttask" i18n="@@AddTask_lbl_parent_task_name">Select Parent Task</label>
+                        <label for="parenttask" i18n="@@addTask_lblParentTask">Select Parent Task</label>
                     </td>
                     <td>
-                        <select class="form-control" formControlName="AddTask_parent_task_name" #AddTask_parent_task_name>
-                            <option [value]="selectUndefinedOptionValue" i18n="@@AddTask_selectoption">-- select --</option>
+                        <select class="form-control" formControlName="addTask_selectParentTask" #addTask_selectParentTask>
+                            <option [value]="selectUndefinedOptionValue" i18n="@@addTask_selectParentOption">-- select --</option>
                             <option *ngFor="let task of tasks">{{task.task_name}}</option>
                         </select>
                     </td>
@@ -66,26 +66,26 @@
                 </tr>
                 <tr>
                     <td>
-                        <label for="AddTask_txt_start_date" i18n="@@AddTask_lbl_start_date">Start Date </label>
+                        <label for="addTask_txtStartDate" i18n="@@addTask_lblStartDate">Start Date </label>
                     </td>
                     <td>
-                        <input type="date" class="form-control" formControlName="AddTask_txt_start_date" #AddTask_txt_start_date required (blur)="compareTwoDates()">
+                        <input type="date" class="form-control" formControlName="addTask_txtStartDate" #addTask_txtStartDate required (blur)="compareTwoDates()">
                     </td>
                     <td></td>
                 </tr>
 
                 <tr>
                     <td>
-                        <label for="enddate" i18n="@@AddTask_lbl_end_date">End Date</label>
+                        <label for="addTask_txtEndDate" i18n="@@addTask_lblEndDate">End Date</label>
                     </td>
                     <td>
-                        <input type="date" class="form-control" formControlName="AddTask_txt_end_date" #AddTask_txt_end_date required (blur)="compareTwoDates()">
+                        <input type="date" class="form-control" formControlName="addTask_txtEndDate" #addTask_txtEndDate required (blur)="compareTwoDates()">
                     </td>
                     <td></td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <div *ngIf="error.isError" i18n="@@AddTask_error" class="alert alert-danger">
+                        <div *ngIf="error.isError" i18n="@@addTask_error" class="alert alert-danger">
                             {{ error.errorMessage }}
                         </div>
                     </td>
@@ -93,14 +93,14 @@
                 </tr>
                 <tr>
                     <td>
-                        <label for="user" i18n="@@AddTask_lbl_user">User</label>
+                        <label for="addTask_txtUser" i18n="@@addTask_lblUser">User</label>
                     </td>
                     <td>
-                        <input type="text" [(ngModel)]="selectedUser.user_fname" disabled class="form-control" formControlName="AddTask_txt_user"
-                            #AddTask_txt_user required>
+                        <input type="text" [(ngModel)]="selectedUser.user_fname" disabled class="form-control" formControlName="addTask_txtUser"
+                            #addTask_txtUser required>
                     </td>
                     <td>
-                        <a i18n="@@AddTask_SearchUser" data-toggle="modal" data-target="#userModalDialog" class="btn btn-default" #AddTask_SearchUser>Search</a>
+                        <a i18n="@@addTask_btnSearchUser" data-toggle="modal" data-target="#userModalDialog" class="btn btn-default" #addTask_btnSearchUser>Search</a>
                     </td>
 
                 </tr>
@@ -112,12 +112,12 @@
                 </tr>
                 <tr>
                     <td>
-                        <input class="btn btn-primary" i18n="@@AddTask_btn_Addtask" type="submit" value="Add Task" [disabled]="error.isError || angFormAddTask.invalid"
-                            (click)="addtask(selectedProject._id, AddTask_txt_task_name.value,AddTask_parent_task_name.value,AddTask_txt_start_date.value,AddTask_txt_end_date.value, AddTask_priority.value, selectedUser._id)"> &nbsp;
+                        <input class="btn btn-primary" i18n="@@addTask_btnAddTask" type="submit" value="Add Task" [disabled]="error.isError || angFormAddTask.invalid"
+                            (click)="addtask(selectedProject._id, addTask_txtTaskName.value,addTask_selectParentTask.value,addTask_txtStartDate.value,addTask_txtEndDate.value, addTask_sliPriority.value, selectedUser._id)"> &nbsp;
                     </td>
                     <td>
 
-                        <input class="btn btn-primary" i18n="@@AddTask_btn_Reset" type="reset" value="Reset" (click)="reset()">
+                        <input class="btn btn-primary" i18n="@@addTask_btnReset" type="reset" value="Reset" (click)="reset()">
                     </td>
                     <td></td>
                 </tr>
@@ -142,11 +142,11 @@
             <div class="modal-body">
                 <form [formGroup]="angFormSearchProj">
                     <div class="form-group">
-                        <input type="text" i18n="@@AddTask_txt_SearchProj" placeholder="Search..." class="form-control" id="txt_SearchProj" formControlName="txt_SearchProj"
-                            #txt_SearchProj>
+                        <input type="text" i18n="@@addTask_txtSearchProj" placeholder="Search..." class="form-control" id="addTask_txtSearchProj"
+                            formControlName="addTask_txtSearchProj" #addTask_txtSearchProj>
                         <br/>
                         <ul class="list-group">
-                            <li class="list-group-item" *ngFor="let project of projects | SearchProject : txt_SearchProj.value">
+                            <li class="list-group-item" *ngFor="let project of projects | SearchProject : addTask_txtSearchProj.value">
                                 <a (click)="projectSelected(project)">{{project.Project_name}}</a>
                             </li>
                         </ul>
@@ -154,9 +154,7 @@
                 </form>
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+
         </div>
 
     </div>
@@ -177,20 +175,18 @@
             <div class="modal-body">
                 <form [formGroup]="angFormSearchUser">
                     <div class="form-group">
-                        <input type="text" i18n="@@AddProject_txt_SearchUser" placeholder="Search..." class="form-control" id="txt_SearchUser" formControlName="txt_SearchUser"
-                            #txt_SearchUser>
+                        <input type="text" i18n="@@addTask_txtSearchUser" placeholder="Search..." class="form-control" id="addTask_txtSearchUser"
+                            formControlName="addTask_txtSearchUser" #addTask_txtSearchUser>
                         <br/>
                         <ul class="list-group">
-                            <li class="list-group-item" *ngFor="let user of users  | SearchUser : txt_SearchUser.value">
+                            <li class="list-group-item" *ngFor="let user of users  | SearchUser : addTask_txtSearchUser.value">
                                 <a id="userselection" (click)="userSelected(user)">{{user.user_empID}} - {{user.user_fname}} {{user.user_lname}}</a>
                             </li>
                         </ul>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+
         </div>
 
     </div>

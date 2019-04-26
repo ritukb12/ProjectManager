@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test-init": "node_modules/.bin/jasmine init",
-    "test": "node_modules/.bin/jasmine"
+    "test": "node_modules/.bin/jasmine",
+    "test-cover": "istanbul cover --include-all-sources spec/specs.js && istanbul check-coverage"
   },
   "keywords": [],
   "author": "",
@@ -16,12 +17,16 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "i18n": "^0.8.3",
-    "jasmine": "^3.3.1",
     "mongoose": "^5.4.19",
-    "morgan": "^1.9.1",
-    "supertest": "^4.0.2"
+    "morgan": "^1.9.1"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "istanbul": "^0.4.5",
+    "jasmine": "^3.4.0",
+    "jasmine-console-reporter": "^3.1.0",
+    "jasmine-node": "^1.16.2",
+    "jasmine-supertest": "^1.0.0",
+    "nodemon": "^1.18.10",
+    "supertest": "^4.0.2"
   }
 }

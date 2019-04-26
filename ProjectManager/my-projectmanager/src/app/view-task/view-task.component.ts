@@ -4,7 +4,7 @@ import Project from '../Project';
 import { TaskService } from '../services/task.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SearchTaskPipe } from '../search-task.pipe'
+import { SearchTaskPipe } from '../Pipes/search-task.pipe'
 import { ProjectService } from '../services/project.service';
 
 @Component({

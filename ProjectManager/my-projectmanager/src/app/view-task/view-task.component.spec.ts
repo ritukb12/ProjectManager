@@ -1,7 +1,7 @@
 import { async, fakeAsync,ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ViewTaskComponent } from './view-task.component';
-import { SearchTaskPipe } from '../search-task.pipe'
+import { SearchTaskPipe } from '../pipes/search-task.pipe'
 import { RouterTestingModule } from '@angular/router/testing';
 import {HttpClientModule} from "@angular/common/http";
 import { DatePipe } from '@angular/common';

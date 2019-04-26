@@ -53,20 +53,20 @@ export class AddTaskComponent implements OnInit {
   //Function to create the Form
   createForm() {
     this.angFormAddTask = this.fb.group({
-      AddTask_txt_task_name: ['', Validators.required],
-      AddTask_txt_projname: ['', Validators.required],
-      AddTask_txt_user: ['', Validators.required],
-      AddTask_priority: [''],
-      AddTask_parent_task_name: [''],
-      AddTask_txt_start_date: ['', Validators.required],
-      AddTask_txt_end_date: ['', Validators.required]
+      addTask_txtTaskName: ['', Validators.required],
+      addTask_txtProjectName: ['', Validators.required],
+      addTask_txtUser: ['', Validators.required],
+      addTask_sliPriority: ['',  Validators.required],
+      addTask_selectParentTask: [''],
+      addTask_txtStartDate: ['', Validators.required],
+      addTask_txtEndDate: ['', Validators.required]
     });
     this.angFormSearchProj = this.fb.group({
-      txt_SearchProj: ['']
+      addTask_txtSearchProj: ['']
     })
 
     this.angFormSearchUser = this.fb.group({
-      txt_SearchUser: ['']
+      addTask_txtSearchUser: ['']
     });
   }
 
@@ -114,7 +114,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   compareTwoDates() {
-    if (new Date(this.angFormAddTask.controls['AddTask_txt_end_date'].value) < new Date(this.angFormAddTask.controls['AddTask_txt_start_date'].value)) {
+    if (new Date(this.angFormAddTask.controls['addTask_txtEndDate'].value) < new Date(this.angFormAddTask.controls['addTask_txtStartDate'].value)) {
       this.error = { isError: true, errorMessage: "End Date can't before start date" };
     }
     else { this.error = { isError: false, errorMessage: "" }; }
