@@ -23,7 +23,7 @@ projectRoutes.route('/addproject').post(function (req, res) {
 projectRoutes.route('/suspendproject/:id').post(function (req, res) {
   Project.findById(req.params.id, function (err, project) {
     if (!project)
-      res.status(200).json({ "Message": "Could not find Project to suspend" });
+      res.status(404).json({ "Message": "Could not find Project to suspend" });
     else {
       project.projectended = true;
       project.save()
@@ -42,7 +42,7 @@ projectRoutes.route('/suspendproject/:id').post(function (req, res) {
 projectRoutes.route('/getallprojects').get(function (req, res) {
   Project.find(function (err, projects) {
     if (err) {
-      console.log(err);
+      res.status(400).send("unable to get all projects");
     }
     else {
       res.json(projects);
@@ -55,8 +55,7 @@ projectRoutes.route('/getproject/:id').get(function (req, res) {
   let id = req.params.id;
   Project.findById(id, function (err, project) {
     if (err) {
-
-      res.json({ success: false });
+      res.status(404).send({ success: false });
     }
     else {
       res.json(project);
@@ -70,7 +69,7 @@ projectRoutes.route('/getproject/:id').get(function (req, res) {
 projectRoutes.route('/updateproject/:id').post(function (req, res) {
   Project.findById(req.params.id, function (err, project) {
     if (!project)
-      res.status(200).json({ "Message": "Could not find Project to update" });
+      res.status(404).json({ "Message": "Could not find Project to update" });
     else {
       project.Project_name = req.body.Project_name;
       project.manager_ID = req.body.manager_ID;

@@ -27,7 +27,7 @@ taskRoutes.route('/add').post(function (req, res) {
 taskRoutes.route('/viewTasks').get(function (req, res) {
   Task.find(function (err, task) {
     if (err) {
-      console.log(err);
+      res.status(500).send({ success: false });
     }
     else {
       res.json(task);
@@ -40,10 +40,18 @@ taskRoutes.route('/viewTasks').get(function (req, res) {
 taskRoutes.route('/gettasksbyproject/:projectId').get(function (req, res) {
   Task.find({ "projectID": req.params.projectId })
     .then(tasks => {
-      res.json(tasks);
+      if(tasks)
+      {
+        res.json(tasks);
+      }
+      else
+      {
+        res.status(404).send({"Message": "Tasks with this projectID not found"})
+      }
+     
     })
     .catch(err => {
-      res.status(400).send({ "Message": "Tasks filter unsuccessful" });
+      res.status(404).send({ "Message": "Tasks filter unsuccessful" });
     });
 });
 
@@ -52,8 +60,7 @@ taskRoutes.route('/getTask/:id').get(function (req, res) {
   let id = req.params.id;
   Task.findById(id, function (err, task) {
     if (err) {
-
-      res.json({ success: false });
+      res.status(404).send({ success: false });
     }
     else {
       res.json(task);
@@ -67,7 +74,7 @@ taskRoutes.route('/getTask/:id').get(function (req, res) {
 taskRoutes.route('/update/:id').post(function (req, res) {
   Task.findById(req.params.id, function (err, task) {
     if (!task)
-      res.status(200).json({ "Message": "Could not find Task to update" });
+      res.status(404).json({ "Message": "Could not find Task to update" });
     else {
       task.task_name = req.body.task_name;
       task.parent_task_name = req.body.parent_task_name;
@@ -78,11 +85,11 @@ taskRoutes.route('/update/:id').post(function (req, res) {
       // task.business_gst_number = req.body.business_gst_number;
 
       task.save()
-        .then(task => {
+        .then(resp => {
           res.json({ "Message": "Update completed successfully" });
         })
         .catch(err => {
-          res.status(400).send({ "Message": "Update unsuccessful" });
+          res.status(500).send({ "Message": "Update unsuccessful" });
         });
     }
   });
@@ -93,17 +100,17 @@ taskRoutes.route('/update/:id').post(function (req, res) {
 taskRoutes.route('/endTask/:id').post(function (req, res) {
   Task.findById(req.params.id, function (err, task) {
     if (!task)
-      res.status(200).json({ "Message": "Could not find Task to end" });
+      res.status(404).json({ "Message": "Could not find Task to end" });
     else {
 
       task.taskended = req.body.taskended;
 
       task.save()
-        .then(task => {
-          res.json({ "Message": "Update successful" });
+        .then(resp => {
+          resp.status(200).send({ "Message": "Update successful" });
         })
         .catch(err => {
-          res.status(400).send("Unable to update the database");
+          resp.status(500).send("Unable to update the database");
         });
     }
   });
@@ -113,8 +120,7 @@ taskRoutes.route('/endTask/:id').post(function (req, res) {
 taskRoutes.route('/delete/:id').get(function (req, res) {
   Task.findByIdAndRemove({ _id: req.params.id }, function (err, task) {
     if (err) {
-      console.log("Error:", err);
-      res.json({ success: false });
+      res.status(404).send({ success: false });
     }
     else res.json({ "Message": "Successfully removed" });
   });
@@ -170,7 +176,7 @@ taskRoutes.route('/getAllParents').get(function (req, res) {
   //res.send('Get categories');
   Task.find(function (err, task) {
     if (err) {
-      console.log(err);
+      res.status(500).send({ success: false });
     }
     else {
       res.json(task);

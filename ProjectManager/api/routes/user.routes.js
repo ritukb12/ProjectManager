@@ -35,7 +35,7 @@ userRoutes.route('/getuser/:id').get(function (req, res) {
   let id = req.params.id;
   User.findById(id, function (err, user) {
     if (err) {
-      res.json({  "Message": "Could not get user" });
+      res.status(404).send({  "Message": "Could not get user" });
     }
     else {
       res.json(user);
@@ -69,8 +69,7 @@ userRoutes.route('/updateuser/:id').post(function (req, res) {
 userRoutes.route('/delete/:id').get(function (req, res) {
   User.findByIdAndRemove({ _id: req.params.id }, function (err, user) {
     if (err) {
-      console.log("Error:", err);
-      res.json({ success: false });
+      res.status(404).send({ success: false });
     }
     else res.json({ "Message": "Successfully removed" });
   });
