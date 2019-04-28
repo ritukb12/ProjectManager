@@ -4,10 +4,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchUserPipe } from '../pipes/search-user.pipe';
 import { SearchProjectPipe } from '../pipes/search-project.pipe';
+import { mockUsers } from '../mockdata/Users.mock'
+import { mockProjects } from '../mockdata/Projects.mock'
+import { mockTasks } from '../mockdata/Tasks.mock'
+import { UserService } from '../services/user.service';
+import { ProjectService } from '../services/project.service';
+import { TaskService } from '../services/task.service';
+import { Observable } from 'rxjs/Rx';
 
 describe('AddTaskComponent', () => {
   let component: AddTaskComponent;
   let fixture: ComponentFixture<AddTaskComponent>;
+  let userService: UserService;
+  let projectService: ProjectService;
+  let taskService: TaskService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -15,6 +25,9 @@ describe('AddTaskComponent', () => {
       imports :[FormsModule,ReactiveFormsModule,HttpClientModule]
     })
     .compileComponents();
+    userService = TestBed.get(UserService);
+    taskService = TestBed.get(TaskService);
+    projectService = TestBed.get(ProjectService);
   }));
 
   beforeEach(() => {
@@ -40,6 +53,50 @@ describe('AddTaskComponent', () => {
     expect(component.angFormAddTask.valid).toBeFalsy();
     //expect(component.angForm.valid).toBeTruthy();
   }));
+
+
+  it('should get projects', () => {
+    fixture.detectChanges();
+    const spy = spyOn(projectService, 'getAllProjects').and.returnValue(Observable.of(mockProjects));
+    component.  getAllProjects();
+    fixture.detectChanges();
+    expect(component.projects).toEqual(mockProjects);
+    expect(spy.calls.any()).toEqual(true);
+  })
+
+  it('should get users', () => {
+    fixture.detectChanges();
+    const spy = spyOn(userService, 'getUsers').and.returnValue(Observable.of(mockUsers));
+    component.getAllUsers();
+    fixture.detectChanges();
+    expect(component.users).toEqual(mockUsers);
+    expect(spy.calls.any()).toEqual(true);
+  })
+
+
+  it('should get tasks', () => {
+    fixture.detectChanges();
+    const spy = spyOn(taskService, 'gettasks').and.returnValue(Observable.of(mockTasks));
+    component.getAllTasks();
+    fixture.detectChanges();
+    expect(component.tasks).toEqual(mockTasks);
+    expect(spy.calls.any()).toEqual(true);
+  })
+
+
+  it('should set the selected user', () => {
+    fixture.detectChanges();
+    component.userSelected(mockUsers[0]);
+    expect(component.selectedUser).toEqual(mockUsers[0]);
+  })
+
+
+  it('should set the selected project', () => {
+    fixture.detectChanges();
+    component.projectSelected(mockProjects[0]);
+    expect(component.selectedProject).toEqual(mockProjects[0]);
+  })
+  
 
   it('form should be valid', async(() => {
     component.angFormAddTask.controls['addTask_txtTaskName'].setValue('test');

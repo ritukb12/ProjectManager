@@ -106,11 +106,11 @@ taskRoutes.route('/endTask/:id').post(function (req, res) {
       task.taskended = req.body.taskended;
 
       task.save()
-        .then(resp => {
-          resp.status(200).send({ "Message": "Update successful" });
+        .then(task => {
+          res.status(200).send({ "Message": "Update successful" });
         })
         .catch(err => {
-          resp.status(500).send("Unable to update the database");
+          res.status(500).send("Unable to update the database");
         });
     }
   });

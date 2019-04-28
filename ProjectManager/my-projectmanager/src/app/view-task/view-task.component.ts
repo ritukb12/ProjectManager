@@ -106,6 +106,7 @@ export class ViewTaskComponent implements OnInit {
         this.projects = data;
       });
   }
+  
   sortdata(param) {
     this.ts.sortdata(param).subscribe(
       (data: Task[]) => {

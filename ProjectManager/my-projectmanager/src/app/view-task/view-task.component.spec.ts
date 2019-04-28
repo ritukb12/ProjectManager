@@ -8,12 +8,16 @@ import { DatePipe } from '@angular/common';
 import { TaskService } from '../services/task.service';
 import { Observable } from 'rxjs/Rx';
 import Task from '../Task';
-import {mockTasks} from '../Tasks.mock'
+import {mockTasks} from '../mockdata/Tasks.mock'
 import { of } from 'rxjs'
+import { mockProjects } from '../mockdata/Projects.mock'
+import { ProjectService } from '../services/project.service';
 
 describe('ViewTaskComponent', () => {
   let component: ViewTaskComponent;
   let fixture: ComponentFixture<ViewTaskComponent>;
+  let taskService: TaskService;
+  let projectService: ProjectService;
 let tasks :  Task[];
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -22,6 +26,8 @@ let tasks :  Task[];
       providers:[DatePipe]
     })
       .compileComponents();
+      taskService = TestBed.get(TaskService);
+      projectService = TestBed.get(ProjectService);
   }));
 
   beforeEach(() => {
@@ -38,15 +44,40 @@ let tasks :  Task[];
     expect(component.title).toEqual('View Task');
   });
 
-  it('should fetch all data from service in async manner', fakeAsync(() => {  
-    let taskService: TaskService = fixture.debugElement.injector.get(TaskService);
-    const spy = spyOn(taskService, 'getMockTasks').and.returnValue(of(mockTasks));
-    
-    component.mockTest();
+  it('should get tasks', () => {
     fixture.detectChanges();
-    //fixture.whenStable().then({
-      expect(component.mockTasks).toEqual(mockTasks);
-    //});
+    const spy = spyOn(taskService, 'gettasks').and.returnValue(Observable.of(mockTasks));
+    component.getAllTasks();
+    fixture.detectChanges();
+    expect(component.tasks).toEqual(mockTasks);
     expect(spy.calls.any()).toEqual(true);
-  }));
-});
+  })
+  
+
+  it('should get projects', () => {
+    fixture.detectChanges();
+    const spy = spyOn(projectService, 'getAllProjects').and.returnValue(Observable.of(mockProjects));
+    component.getAllProjects();
+    fixture.detectChanges();
+    expect(component.projects).toEqual(mockProjects);
+    expect(spy.calls.any()).toEqual(true);
+  })
+
+
+
+  it('should sort tasks based on task name', () => {
+    fixture.detectChanges();
+    const spy = spyOn(taskService, 'sortdata').and.returnValue(Observable.of(mockTasks));
+    component.sortdata('task_name');
+    fixture.detectChanges();
+    expect(component.tasks).toEqual(mockTasks);
+    expect(spy.calls.any()).toEqual(true);
+  })
+
+  it('should set the selected project', () => {
+    fixture.detectChanges();
+    component.projectSelected(mockProjects[0]);
+    expect(component.selectedProject).toEqual(mockProjects[0]);
+  })
+
+})

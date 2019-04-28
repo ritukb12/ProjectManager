@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs'
-import { mockTasks } from '../Tasks.mock'
+import { mockTasks } from '../mockdata/Tasks.mock'
 @Injectable({
   providedIn: 'root'
 })

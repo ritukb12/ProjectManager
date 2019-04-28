@@ -1,7 +1,7 @@
 import { SearchTaskPipe } from './search-task.pipe';
 import { DatePipe } from '@angular/common';
 import { TestBed, inject } from '@angular/core/testing';
-
+import {mockTasks} from '../mockdata/Tasks.mock'
 describe('SearchTaskPipe', () => {
   const tasks = [
       {

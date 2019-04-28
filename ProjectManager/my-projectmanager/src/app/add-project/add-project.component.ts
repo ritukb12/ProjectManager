@@ -43,10 +43,6 @@ export class AddProjectComponent implements OnInit {
     this.getAllUsers();
   }
 
-  toggleFlag() {//if()
-
-  }
-
   userSelected(user) {
     this.selectedUser = user;
     
@@ -164,7 +160,6 @@ export class AddProjectComponent implements OnInit {
       }
     );
   }
-
 
   sortdata(param) {
     this.projectService.sortdata(param).subscribe(
