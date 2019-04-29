@@ -76,14 +76,7 @@ export class ViewTaskComponent implements OnInit {
    this.getAllProjects();
   }
 
-  //Mock test function to check HTTP response
-  mockTest() {
-    this.ts.getMockTasks().subscribe(data => {
-      this.mockTasks = data
-    }
-    )
-  }
-
+  
   getAllTasks() {
     this.ts
       .gettasks()
