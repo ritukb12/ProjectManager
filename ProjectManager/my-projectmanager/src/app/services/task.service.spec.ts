@@ -58,7 +58,7 @@ describe('TaskService', () => {
       });
 
       it('Sort Tasks should return an Observable<Tasks[]>', () => {    
-        taskService.sortdata('user_fname').subscribe(tasks => {
+        taskService.sortdata('task_name').subscribe(tasks => {
           expect(tasks.length).toBe(2);
           expect(tasks).toEqual(mockTasks);
         });    
