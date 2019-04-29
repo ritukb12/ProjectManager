@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">76.47% </span>
+        <span class="strong">94.12% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>13/17</span>
+        <span class='fraction'>16/17</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,21 +30,21 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">42.86% </span>
+        <span class="strong">85.71% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>3/7</span>
+        <span class='fraction'>6/7</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">75% </span>
+        <span class="strong">93.75% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>12/16</span>
+        <span class='fraction'>15/16</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -134,8 +134,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">29x</span>
-<span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -151,14 +151,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">29x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -172,7 +165,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -186,7 +186,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -234,8 +234,8 @@ export class UserService {
   }
 &nbsp;
 &nbsp;
-<span class="fstat-no" title="function not covered" >  sortdata(</span>byCol): Observable&lt;any&gt;  {
-<span class="cstat-no" title="statement not covered" >    return this</span>
+  sortdata(byCol): Observable&lt;any&gt;  {
+    return this
       .http
       .get(`${this.uri}/sortusers/${byCol}`);
   }
@@ -248,22 +248,22 @@ export class UserService {
   }
 &nbsp;
   //Function to delete a task
-<span class="fstat-no" title="function not covered" >  deleteUser(</span>id): Observable&lt;any&gt;  {
-<span class="cstat-no" title="statement not covered" >    return this</span>
+  deleteUser(id): Observable&lt;any&gt;  {
+    return this
       .http
       .get(`${this.uri}/delete/${id}`);
   }
    
 &nbsp;
   //Function to update a task
-<span class="fstat-no" title="function not covered" >  updateUser(</span>user_fname,user_lname, user_empId,id): Observable&lt;any&gt;  {
+  updateUser(user_fname,user_lname, user_empId,id): Observable&lt;any&gt;  {
 &nbsp;
     const obj = {
         "user_fname": user_fname,
         "user_lname": user_lname,
         "user_empid": user_empId
     };
-<span class="cstat-no" title="statement not covered" >    return this</span>
+    return this
       .http
       .post(`${this.uri}/updateuser/${id}`, obj);
   }
@@ -283,7 +283,7 @@ export class UserService {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Apr 28 2019 21:04:47 GMT+0530 (India Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Apr 29 2019 13:35:59 GMT+0530 (India Standard Time)
 </div>
 </div>
 <script src="..\..\..\prettify.js"></script>

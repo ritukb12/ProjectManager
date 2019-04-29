@@ -12,6 +12,20 @@ export class TaskService {
   uri = 'http://localhost:4000/task';
   constructor(private http: HttpClient) { }
 
+
+  //Function  to get all tasks
+  gettasks(): Observable<any> {
+    return this
+      .http
+      .get(`${this.uri}/viewTasks`);
+  }
+
+  getAllTasksForProject(projectId): Observable<any> {
+    return this
+      .http
+      .get(`${this.uri}/gettasksbyproject/${projectId}`);
+  }
+
   //Function  to Add a task
   addtask(project_id, task_name, parent_task_name, start_date, end_date, priority, user_id): Observable<any> {
     const obj = {
@@ -29,12 +43,6 @@ export class TaskService {
 
   }
 
-  //Function  to get all tasks
-  gettasks(): Observable<any> {
-    return this
-      .http
-      .get(`${this.uri}/viewTasks`);
-  }
 
   //Function to edit a task
   editTask(id): Observable<any> {
@@ -67,11 +75,7 @@ export class TaskService {
       .get(`${this.uri}/sorttasks/${byCol}`);
   }
 
-  getAllTasksForProject(projectId): Observable<any> {
-    return this
-      .http
-      .get(`${this.uri}/gettasksbyproject/${projectId}`);
-  }
+ 
 
   //Function to update a task
   updateTask(task_name, parent_task_name, start_date, end_date, priority, id): Observable<any> {
@@ -89,11 +93,6 @@ export class TaskService {
   }
 
 
-
-  //Mock Function  to get all tasks
-  getMockTasks(): Observable<any> {
-    return of(mockTasks);
-  }
 
 
 }
