@@ -51,8 +51,19 @@ let tasks :  Task[];
     fixture.detectChanges();
     expect(component.tasks).toEqual(mockTasks);
     expect(spy.calls.any()).toEqual(true);
+  })  
+
+  it('should get all projects and tasks on init', () => {
+    fixture.detectChanges();
+    const spy1 = spyOn(taskService, 'gettasks').and.returnValue(Observable.of(mockTasks));
+    const spy2 = spyOn(projectService, 'getAllProjects').and.returnValue(Observable.of(mockProjects));
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(component.tasks).toEqual(mockTasks);
+    expect(component.projects).toEqual(mockProjects);
+    expect(spy1.calls.any()).toEqual(true);
+    expect(spy2.calls.any()).toEqual(true);
   })
-  
 
   it('should get projects', () => {
     fixture.detectChanges();
@@ -64,7 +75,6 @@ let tasks :  Task[];
   })
 
 
-
   it('should sort tasks based on task name', () => {
     fixture.detectChanges();
     const spy = spyOn(taskService, 'sortdata').and.returnValue(Observable.of(mockTasks));
@@ -72,6 +82,29 @@ let tasks :  Task[];
     fixture.detectChanges();
     expect(component.tasks).toEqual(mockTasks);
     expect(spy.calls.any()).toEqual(true);
+  })
+
+
+  it('should delete task', () => {
+    fixture.detectChanges();
+    const spy1 = spyOn(taskService, 'gettasks').and.returnValue(Observable.of(mockTasks));
+    const spy2 = spyOn(taskService, 'deleteTask').and.returnValue(Observable.of(mockTasks));
+    component.deleteTask('1');
+    fixture.detectChanges();
+    expect(component.tasks).toEqual(mockTasks);
+    expect(spy1.calls.any()).toEqual(true);
+    expect(spy2.calls.any()).toEqual(true);
+  })
+
+  it('should end task', () => {
+    fixture.detectChanges();
+    const spy1 = spyOn(taskService, 'gettasks').and.returnValue(Observable.of(mockTasks));
+    const spy2 = spyOn(taskService, 'endTask').and.returnValue(Observable.of(mockTasks));
+    component.endTask('1');
+    fixture.detectChanges();
+    expect(component.tasks).toEqual(mockTasks);
+    expect(spy1.calls.any()).toEqual(true);
+    expect(spy2.calls.any()).toEqual(true);
   })
 
   it('should set the selected project', () => {

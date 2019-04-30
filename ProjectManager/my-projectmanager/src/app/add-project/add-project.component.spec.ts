@@ -34,9 +34,27 @@ describe('AddProjectComponent', () => {
     fixture.detectChanges();
   });
 
+
+  it('ngOninit should get all projects and users', () => {
+    fixture.detectChanges();
+    const spy1 = spyOn(projectService, 'getAllProjects').and.returnValue(Observable.of(mockProjects));
+    const spy2 = spyOn(userService, 'getUsers').and.returnValue(Observable.of(mockUsers));
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(component.projects).toEqual(mockProjects);
+    expect(component.users).toEqual(mockUsers);
+    expect(spy1.calls.any()).toEqual(true);
+    expect(spy2.calls.any()).toEqual(true);
+  })
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it(`should have as title 'Add Project'`, () => {
+    expect(component.title).toEqual('Add Project');
+  });
+
 
   it('should get users', () => {
     fixture.detectChanges();
@@ -69,12 +87,16 @@ describe('AddProjectComponent', () => {
 
 
   it('should set values for edit project', async(() => {
-    var project = mockProjects[0];
-  component.editproject(project);
-  expect(component.proj_Name).toEqual(project.Project_name);
-  expect(component.proj_priority).toEqual(project.priority);
-  expect(component.proj_start_date).toEqual(project.start_date);
-  expect(component.proj_end_date).toEqual(project.end_date);
+    const spy = spyOn(userService, 'editUser').and.returnValue(Observable.of(mockUsers[0]));
+    component.editproject(mockProjects[0]);
+    fixture.detectChanges();
+    expect(component.proj_Name).toEqual(mockProjects[0].Project_name);
+    expect(component.proj_priority).toEqual(mockProjects[0].priority);
+    expect(component.proj_start_date).toEqual(mockProjects[0].start_date);
+    expect(component.proj_end_date).toEqual(mockProjects[0].end_date);
+    expect(component.selectedUser).toEqual(mockUsers[0]);
+    expect(component.proj_manager).toEqual(mockUsers[0].user_fname);
+    expect(component.updateMode).toBeTruthy();
     //expect(component.angForm.valid).toBeTruthy();
   }));
 
@@ -120,5 +142,39 @@ describe('AddProjectComponent', () => {
     //expect(component.angForm.valid).toBeTruthy();
   }));
 
+  it('update method should call respective service calls', () => {
+    fixture.detectChanges();
+    const spy2 = spyOn(projectService, 'updateProject').and.returnValue(Observable.of(mockProjects));
+    const spy1 = spyOn(projectService, 'getAllProjects').and.returnValue(Observable.of(mockProjects));
+    component.updateproject('abc', '1', '11-12-2019', '12-12-2019', '1');
+    fixture.detectChanges();
+    expect(component.projects).toEqual(mockProjects);
+    expect(spy1.calls.any()).toEqual(true);
+    expect(spy2.calls.any()).toEqual(true);
+  })
+
+
+  it('Add method should call respective service calls', () => {
+    fixture.detectChanges();
+    const spy2 = spyOn(projectService, 'addproject').and.returnValue(Observable.of(mockProjects));
+    const spy1 = spyOn(projectService, 'getAllProjects').and.returnValue(Observable.of(mockProjects));
+    component.addproject('abc', '1', '11-12-2019', '12-12-2019', '1');
+    fixture.detectChanges();
+    expect(component.projects).toEqual(mockProjects);
+    expect(spy1.calls.any()).toEqual(true);
+    expect(spy2.calls.any()).toEqual(true);
+  })
+
+
+  it('Suspend method should call respective service calls', () => {
+    fixture.detectChanges();
+    const spy2 = spyOn(projectService, 'suspendProject').and.returnValue(Observable.of(mockProjects));
+    const spy1 = spyOn(projectService, 'getAllProjects').and.returnValue(Observable.of(mockProjects));
+    component.suspendProject('123');
+    fixture.detectChanges();
+    expect(component.projects).toEqual(mockProjects);
+    expect(spy1.calls.any()).toEqual(true);
+    expect(spy2.calls.any()).toEqual(true);
+  })
 
 });

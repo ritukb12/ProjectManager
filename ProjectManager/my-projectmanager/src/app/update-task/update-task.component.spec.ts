@@ -3,7 +3,10 @@ import {HttpClientModule} from "@angular/common/http";
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UpdateTaskComponent } from './update-task.component';
-
+import Task from '../Task';
+import {mockTasks} from '../mockdata/Tasks.mock'
+import { Observable } from 'rxjs/Rx';
+import { of } from 'rxjs'
 import { By } from '@angular/platform-browser';
 //import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 //import { Router, ActivatedRoute } from '@angular/router';
@@ -19,6 +22,7 @@ import { TaskService } from "../services/task.service";
 describe('UpdateTaskComponent', () => {
   let component: UpdateTaskComponent;
   let fixture: ComponentFixture<UpdateTaskComponent>;
+  let taskService :  TaskService;
   //let httpMock: HttpTestingController;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -33,6 +37,8 @@ describe('UpdateTaskComponent', () => {
    
     })
       .compileComponents();
+      taskService = TestBed.get(TaskService);
+      const spy1 = spyOn(taskService, 'editTask').and.returnValue(Observable.of(mockTasks[0]));
   }));
 
   beforeEach(() => {
@@ -49,54 +55,55 @@ describe('UpdateTaskComponent', () => {
     expect(component.title).toEqual('Update Task');
   });
 
+  it(`should reset error on click of Reset`, () => {  
+    component.reset();
+    expect(component.error.isError).toBeFalsy();
+    expect(component.error.errorMessage).toEqual("");
+  });
+
+
   it('Task Name cannot be empty', () => {  
     component.ValidateTaskName("");
     expect(component.tasknameErr).toBeTruthy();
   });
 
-  // it('form should be invalid', async(() => {
-  //   component.angForm1.controls['task_name'].setValue('');
-  //   component.angForm1.controls['parent_task_name'].setValue('');    
-  //   component.angForm1.controls['priority'].setValue('');
-  //   component.angForm1.controls['start_date'].setValue('');
-  //   component.angForm1.controls['end_date'].setValue('');
-  //   expect(component.angForm1.valid).toBeFalsy();
-  //   //expect(component.angForm.valid).toBeTruthy();
-  // }));
+  it('ngOninit works fine', () => {  
+    const spy1 = spyOn(taskService, 'gettasks').and.returnValue(Observable.of(mockTasks));
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(component.task).toEqual(mockTasks[0]);
+    expect(component.allTasks).toEqual(mockTasks);
+  });
 
-  // it('form should be valid', async(() => {
-  //   component.angForm1.controls['task_name'].setValue('test');
-  //   component.angForm1.controls['parent_task_name'].setValue('test1');    
-  //   component.angForm1.controls['priority'].setValue('1');
-  //   component.angForm1.controls['start_date'].setValue('11/11/1985');
-  //   component.angForm1.controls['end_date'].setValue('11/11/1985');
-  //   expect(component.angForm1.valid).toBeTruthy();
-  //   //expect(component.angForm.valid).toBeTruthy();
-  // }));
 
-  // it('Start date cannot be greater than End Date', async(() => {     
-  //   component.angForm1.controls['start_date'].setValue('11/11/1986');
-  //   component.angForm1.controls['end_date'].setValue('11/11/1985');
-  //   component.compareTwoDates();
-  //   expect(component.error.isError).toBeTruthy();
-  //   //expect(component.angForm.valid).toBeTruthy();
-  // }));
+  it('Start date cannot be greater than End Date', async(() => {     
+    component.angForm1.controls['start_date'].setValue('11/11/1986');
+    component.angForm1.controls['end_date'].setValue('11/11/1985');
+    component.compareTwoDates();
+    expect(component.error.isError).toBeTruthy();   
+  }));
 
-  // it('Start date should be lesser than End Date', async(() => {     
-  //   component.angForm1.controls['start_date'].setValue('11/11/1985');
-  //   component.angForm1.controls['end_date'].setValue('11/11/1986');
-  //   component.compareTwoDates();
-  //   expect(component.error.isError).toBeFalsy();
-  //   //expect(component.angForm.valid).toBeTruthy();
-  // }));
+  it('Start date should be lesser than End Date', async(() => {     
+    component.angForm1.controls['start_date'].setValue('11/11/1985');
+    component.angForm1.controls['end_date'].setValue('11/11/1986');
+    component.compareTwoDates();
+    expect(component.error.isError).toBeFalsy();    
+  }));
 
-  // it('Start date can be equal to End Date', async(() => {     
-  //   component.angForm1.controls['start_date'].setValue('11/11/1985');
-  //   component.angForm1.controls['end_date'].setValue('11/11/1985');
-  //   component.compareTwoDates();
-  //   expect(component.error.isError).toBeFalsy();
-  //   //expect(component.angForm.valid).toBeTruthy();
-  // }));
+  it('Start date can be equal to End Date', async(() => {     
+    component.angForm1.controls['start_date'].setValue('11/11/1985');
+    component.angForm1.controls['end_date'].setValue('11/11/1985');
+    component.compareTwoDates();
+    expect(component.error.isError).toBeFalsy();
+  }));
 
+  it('form should be invalid', async(() => {
+    component.angForm1.controls['task_name'].setValue('');
+    component.angForm1.controls['parent_task_name'].setValue('');    
+    component.angForm1.controls['priority'].setValue('');
+    component.angForm1.controls['start_date'].setValue('');
+    component.angForm1.controls['end_date'].setValue('');
+    expect(component.angForm1.valid).toBeFalsy();   
+  }));
 
 });

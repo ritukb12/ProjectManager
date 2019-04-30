@@ -20,6 +20,7 @@ export class AddUserComponent implements OnInit {
   empID: String = "";
   _ID: String = "";
   updateMode: boolean = false;
+  title = 'Add User';
   // error: any = { isError: false, errorMessage: '' };
   ngOnInit() {
     this.getallusers();

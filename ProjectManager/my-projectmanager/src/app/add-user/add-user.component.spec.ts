@@ -35,6 +35,10 @@ describe('AddUserComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it(`should have as title 'Add User'`, () => {  
+    expect(component.title).toEqual('Add User');
+  });
+
   it('should get users', () => {
     fixture.detectChanges();
     const spy = spyOn(userService, 'getUsers').and.returnValue(Observable.of(mockUsers));

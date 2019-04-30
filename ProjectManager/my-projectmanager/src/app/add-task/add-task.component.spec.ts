@@ -73,7 +73,6 @@ describe('AddTaskComponent', () => {
     expect(spy.calls.any()).toEqual(true);
   })
 
-
   it('should get tasks', () => {
     fixture.detectChanges();
     const spy = spyOn(taskService, 'gettasks').and.returnValue(Observable.of(mockTasks));
@@ -91,11 +90,24 @@ describe('AddTaskComponent', () => {
   })
 
 
+  it('should validate task name is not empty', () => {
+    fixture.detectChanges();
+    component.ValidateTaskName('abc');
+    expect(component.projNameError).toBeFalsy();
+  })
+
+  it('should show error when task name is empty', () => {
+    fixture.detectChanges();
+    component.ValidateTaskName('');
+    expect(component.projNameError).toBeTruthy();
+  })
+
   it('should set the selected project', () => {
     fixture.detectChanges();
     component.projectSelected(mockProjects[0]);
     expect(component.selectedProject).toEqual(mockProjects[0]);
   })
+  
   
 
   it('form should be valid', async(() => {
@@ -133,6 +145,14 @@ describe('AddTaskComponent', () => {
     expect(component.error.isError).toBeFalsy();
     //expect(component.angForm.valid).toBeTruthy();
   }));
+
+  it('Add method should call respective service calls', () => {
+    fixture.detectChanges();
+    const spy1 = spyOn(taskService, 'addtask').and.returnValue(Observable.of({ 'status':200, 'Message': 'Task added successfully' }));    
+    component.addtask('1', 'task abc', 'parent task abc', '11-12-2019', '12-12-2019', '1','1');
+    fixture.detectChanges();
+    expect(spy1.calls.any()).toEqual(true);   
+  })
 
 
 });

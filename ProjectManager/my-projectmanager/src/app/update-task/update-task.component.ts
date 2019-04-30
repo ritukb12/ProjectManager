@@ -49,8 +49,6 @@ export class UpdateTaskComponent implements OnInit {
           if (res)
             window.confirm(res.Message)
         });
-
-
     });
   }
 
