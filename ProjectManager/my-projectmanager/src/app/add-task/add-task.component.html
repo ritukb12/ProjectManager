@@ -113,7 +113,8 @@
                 <tr>
                     <td>
                         <input class="btn btn-primary" i18n="@@addTask_btnAddTask" type="submit" value="Add Task" [disabled]="error.isError || angFormAddTask.invalid"
-                            (click)="addtask(1, addTask_txtTaskName.value,addTask_selectParentTask.value,addTask_txtStartDate.value,addTask_txtEndDate.value, addTask_sliPriority.value, 1)"> &nbsp;
+                            (click)="addtask(selectedProject._id, addTask_txtTaskName.value,addTask_selectParentTask.value,addTask_txtStartDate.value,addTask_txtEndDate.value, addTask_sliPriority.value, 
+                            selectedUser._id)"> &nbsp;
                     </td>
                     <td>
 
