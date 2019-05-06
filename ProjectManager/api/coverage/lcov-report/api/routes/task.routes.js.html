@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">79.73% </span>
+        <span class="strong">67.57% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>59/74</span>
+        <span class='fraction'>50/74</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">75% </span>
+        <span class="strong">70% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>15/20</span>
+        <span class='fraction'>14/20</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">86.67% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>15/15</span>
+        <span class='fraction'>13/15</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">79.73% </span>
+        <span class="strong">67.57% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>59/74</span>
+        <span class='fraction'>50/74</span>
       </div>
     </div>
   </div>
@@ -305,21 +305,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -492,22 +492,22 @@ taskRoutes.route('/getTask/:id').get(function (req, res) {
 });
 &nbsp;
 //  Defined update route
-taskRoutes.route('/update/:id').post(function (req, res) {
-  Task.findById(req.params.id, function (err, task) {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (!task)
+taskRoutes.route('/update/:id').post(<span class="fstat-no" title="function not covered" >function (req, res) {</span>
+<span class="cstat-no" title="statement not covered" >  Task.findById(req.params.id, <span class="fstat-no" title="function not covered" >function (err, task) {</span></span>
+<span class="cstat-no" title="statement not covered" >    if (!task)</span>
 <span class="cstat-no" title="statement not covered" >      res.status(404).json({ "Message": "Could not find Task to update" });</span>
     else {
-      task.task_name = req.body.task_name;
-      task.parent_task_name = req.body.parent_task_name;
-      task.start_date = req.body.start_date;
-      task.end_date = req.body.end_date;
-      task.priority = req.body.priority;
+<span class="cstat-no" title="statement not covered" >      task.task_name = req.body.task_name;</span>
+<span class="cstat-no" title="statement not covered" >      task.parent_task_name = req.body.parent_task_name;</span>
+<span class="cstat-no" title="statement not covered" >      task.start_date = req.body.start_date;</span>
+<span class="cstat-no" title="statement not covered" >      task.end_date = req.body.end_date;</span>
+<span class="cstat-no" title="statement not covered" >      task.priority = req.body.priority;</span>
       // task.business_name = req.body.business_name;
       // task.business_gst_number = req.body.business_gst_number;
 &nbsp;
-      task.save()
+<span class="cstat-no" title="statement not covered" >      task.save()</span>
         .then(resp =&gt; {
-          res.json({ "Message": "Update completed successfully" });
+<span class="cstat-no" title="statement not covered" >          res.json({ "Message": "Update completed successfully" });</span>
         })
         .catch(err =&gt; {
 <span class="cstat-no" title="statement not covered" >          res.status(500).send({ "Message": "Update unsuccessful" });</span>
@@ -613,7 +613,7 @@ module.exports = taskRoutes;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Apr 28 2019 10:32:08 GMT+0530 (India Standard Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon May 06 2019 13:09:12 GMT+0530 (India Standard Time)
 </div>
 </div>
 <script src="../../prettify.js"></script>

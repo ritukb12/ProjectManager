@@ -11,11 +11,11 @@ import { HomeComponent } from './home/home.component';
 import { UpdateTaskComponent } from './update-task/update-task.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { ViewTaskComponent } from './view-task/view-task.component';
-import { SearchTaskPipe } from './pipes/search-task.pipe';
+import { SearchTaskPipe } from './Pipes/search-task.pipe';
 import { AddUserComponent } from './add-user/add-user.component';
 import { AddProjectComponent } from './add-project/add-project.component';
-import { SearchUserPipe } from './pipes/search-user.pipe';
-import { SearchProjectPipe } from './pipes/search-project.pipe';
+import { SearchUserPipe } from './Pipes/search-user.pipe';
+import { SearchProjectPipe } from './Pipes/search-project.pipe';
 
 @NgModule({
   declarations: [

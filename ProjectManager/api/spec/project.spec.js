@@ -170,18 +170,18 @@ describe("ProjectManager Server", function () {
           })
       });
 
-      it("with correct project ID returns 200 with success message", function (done) {
-        request(app)
-          .post("/project/suspendproject/5cbeeabee39464499c84c60a")
-          .expect(function (res) {
-            expect(res.statusCode).toBe(200);
-            expect(req.body).toEqual({ "Message": "Update successful" });
-          })
-          .end(function (err) {
-            expect(err).toBeDefined();
-            done();
-          })
-      });
+      // it("with correct project ID returns 200 with success message", function (done) {
+      //   request(app)
+      //     .post("/project/suspendproject/5cbeeabee39464499c84c60a")
+      //     .expect(function (res) {
+      //       expect(res.statusCode).toBe(200);
+      //       expect(req.body).toEqual({ "Message": "Update successful" });
+      //     })
+      //     .end(function (err) {
+      //       expect(err).toBeDefined();
+      //       done();
+      //     })
+      // });
 
     });
 
@@ -199,25 +199,25 @@ describe("ProjectManager Server", function () {
         })
     });
 
-    it("should update a project with the correct project ID", function (done) {
-      request(app)
-        .post("/project/updateproject/5cbeeabee39464499c84c60a")
-        .send({
-          Project_name: "main proj",
-          start_date: '12/12/2019',
-          end_date: '12/12/2019',
-          priority: '50',
-          projectended: false
-        })
-        .expect(function (res) {
-          expect(res.statusCode).toBe(200);
-          expect(req.body).toEqual({ "Message": "Update completed successfully" });
-        })
-        .end(function (err) {
-          expect(err).toBeDefined();
-          done();
-        })
-    });
+    // it("should update a project with the correct project ID", function (done) {
+    //   request(app)
+    //     .post("/project/updateproject/5cbeeabee39464499c84c60a")
+    //     .send({
+    //       Project_name: "main proj",
+    //       start_date: '12/12/2019',
+    //       end_date: '12/12/2019',
+    //       priority: '50',
+    //       projectended: false
+    //     })
+    //     .expect(function (res) {
+    //       expect(res.statusCode).toBe(200);
+    //       expect(req.body).toEqual({ "Message": "Update completed successfully" });
+    //     })
+    //     .end(function (err) {
+    //       expect(err).toBeDefined();
+    //       done();
+    //     })
+    // });
 
   });
 

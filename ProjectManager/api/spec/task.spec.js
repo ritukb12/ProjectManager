@@ -51,8 +51,8 @@ describe("TaskManager Server", function () {
       request(app)
         .get("/task/gettasksbyproject/1.5")
         .expect(function (res) {
-         // expect(res.statusCode).toBe(404);
-          expect(req.body).toEqual({"Message": "Tasks with this projectID not found"});
+          // expect(res.statusCode).toBe(404);
+          expect(req.body).toEqual({ "Message": "Tasks with this projectID not found" });
         })
         .end(function (err) {
           expect(err).toBeDefined();
@@ -226,26 +226,26 @@ describe("TaskManager Server", function () {
           done();
         })
     });
-    it("should update a task", function (done) {
-      request(app)
-        .post("/task/update/5cbb64c57f513df6ec20d041")
-        .send({
-          task_name: 'updated task',
-          parent_task_name: '',
-          start_date: '2019-12-12',
-          end_date: '2019-12-12',
-          priority: '51',
-          taskended: false
-        })
-        .expect(function (res) {
-          expect(res.statusCode).toBe(200);
-          expect(req.body).toEqual({ "Message": "Update completed successfully" });
-        })
-        .end(function (err) {
-          expect(err).toBeDefined();
-          done();
-        })
-    });
+    // it("should update a task", function (done) {
+    //   request(app)
+    //     .post("/task/update/5cbb64c57f513df6ec20d041")
+    //     .send({
+    //       task_name: 'updated task',
+    //       parent_task_name: '',
+    //       start_date: '2019-12-12',
+    //       end_date: '2019-12-12',
+    //       priority: '51',
+    //       taskended: false
+    //     })
+    //     .expect(function (res) {
+    //       expect(res.statusCode).toBe(200);
+    //       expect(req.body).toEqual({ "Message": "Update completed successfully" });
+    //     })
+    //     .end(function (err) {
+    //       expect(err).toBeDefined();
+    //       done();
+    //     })
+    // });
   });
 
   describe("Rest API to end Task ", function () {
