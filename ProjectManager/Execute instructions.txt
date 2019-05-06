@@ -1,0 +1,8 @@
+Go into /api for the Node code
+	To start node: node server 
+	To test node: npm run test-cover
+Go into /my-taskmanager for the UI code
+	To start console: ng serve
+	To test UI : ng test --code-coverage
+
+
